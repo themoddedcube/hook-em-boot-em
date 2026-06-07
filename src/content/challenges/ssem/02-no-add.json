@@ -1,0 +1,14 @@
+{
+  "id": "no-add",
+  "title": "A Computer With No Add",
+  "lesson": "To keep the Baby simple enough to actually build with 1948 vacuum-tube technology, its designers made a ruthless cut: there is no addition instruction. The only arithmetic it has is SUB, which subtracts a memory word from the accumulator. That's it. (Subtraction was the natural choice because it falls out of the same hardware that negates, and the Baby was really a testbed for the memory tube, not a number cruncher.)\n\nThere's a real architecture lesson hiding here. An instruction set doesn't need every operation you can imagine. It needs a sufficient set you can build the rest from. And you'll feel the limit right away. To work out 12 minus 5, you first need 12 in the accumulator, but the only way in is LDN (load negative), so you load the negative of negative 12. Then a single SUB finishes the job.",
+  "prompt": "Work out 12 minus 5 and leave the answer (7) in the accumulator, then STP.",
+  "starterCode": "; Get 12 into A (by loading the negative of -12), then SUB 5.\n        LDN negA\n        SUB b\n        STP\nnegA:   NUM -12\nb:      NUM 5\n",
+  "hints": [
+    "LDN negA, where negA holds -12, gives you A = 12.",
+    "Then SUB b, where b holds 5, gives you A = 12 - 5 = 7."
+  ],
+  "success": { "registers": { "A": 7 }, "halted": true },
+  "successText": "A must equal 7 (that's 12 minus 5) at the stop.",
+  "reference": "LDN negA\nSUB b\nSTP\nnegA: NUM -12\nb: NUM 5\n"
+}

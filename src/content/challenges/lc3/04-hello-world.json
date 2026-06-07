@@ -1,0 +1,15 @@
+{
+  "id": "hello-world",
+  "title": "Hello, World",
+  "lesson": "Almost every programmer's first program prints 'Hello, World', and on the LC-3 it's the classic first lab. Output works through TRAP service routines: small built-in helpers you call by name. PUTS prints a zero-terminated string whose starting address is in R0. OUT prints the single character in R0. HALT, which you've used all along, is a TRAP too.\n\nTwo new pieces make it work. LEA ('Load Effective Address') puts the address of a label into a register, which is perfect for pointing R0 at your text. And .STRINGZ lays a string into memory as a run of character codes followed by a zero terminator (that's the 'Z').\n\nThis is the same pattern as the PDP-8's Teletype, but packaged as reusable system services, the direct ancestor of the operating-system calls every program uses today to do input and output.",
+  "prompt": "Print HELLO to the console. Use LEA to point R0 at a .STRINGZ message, then call PUTS, then HALT.",
+  "starterCode": ".ORIG x3000\n        LEA R0, MSG    ; R0 = the address of the string\n        PUTS           ; print the zero-terminated string at R0\n        HALT\nMSG     .STRINGZ \"HELLO\"\n.END\n",
+  "hints": [
+    "LEA R0, MSG loads the address of MSG into R0 (it does not load the characters themselves).",
+    "PUTS prints the string starting at the address in R0, stopping at the zero terminator.",
+    ".STRINGZ \"HELLO\" stores the characters plus a terminating zero."
+  ],
+  "success": { "output": { "contains": "HELLO" }, "halted": true },
+  "successText": "The console output must contain \"HELLO\".",
+  "reference": ".ORIG x3000\nLEA R0, MSG\nPUTS\nHALT\nMSG .STRINGZ \"HELLO\"\n.END\n"
+}

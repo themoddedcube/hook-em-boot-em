@@ -1,0 +1,10 @@
+{
+  "id": "sandbox",
+  "sandbox": true,
+  "title": "Sandbox, and Why the World Needed More",
+  "lesson": "You've programmed the first computer that ever held a program in its own memory. Now feel its limits. The Baby was a wall of equipment racks weighing a tonne, with 128 bytes of memory, no way to get data in or out except by hand-setting switches, and an instruction set so spare it couldn't even add. It was a proof of concept, not a tool. It existed to show that the stored-program idea worked, and to test the Williams memory tube.\n\nFor computing to matter to the world, it had to become something you could actually buy, install in an ordinary room, feed real data, and trust to run for years. Two inventions made that possible: the transistor replaced the fragile, power-hungry vacuum valves, and magnetic-core memory replaced the flickering tube. By the mid-1960s those advances gave us a new kind of machine, the minicomputer: mass-produced, fridge-sized, with real memory, subroutines, and a Teletype for input and output.\n\nThat's your next stop: 1965, and the machine that put computers into thousands of labs and factories for the first time.",
+  "prompt": "Have a play. Try writing values into the store and watching the dots appear on the Williams tube, or work something out of your own with subtract-and-negate. There's no goal here, so when you're ready, travel onward.",
+  "starterCode": "; Sandbox: no goal here. Try your own SSEM code!\n; This writes a value into a few store lines so you can\n; watch dots light up on the screen above.\n        LDN n\n        STO 24\n        STO 26\n        STO 28\n        STP\nn:      NUM -1431655765   ; a stripey bit pattern (0x55555555)\n",
+  "hints": [],
+  "success": {}
+}

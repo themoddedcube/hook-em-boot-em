@@ -1,0 +1,15 @@
+{
+  "id": "isz-loop",
+  "title": "Loops the Easy Way: ISZ",
+  "lesson": "On the Baby, looping meant managing the instruction counter by hand and testing the accumulator's sign. The PDP-8 gives you proper tools. DCA ('Deposit and Clear Accumulator') stores AC into memory and clears it, which is the natural way to save a result. And ISZ ('Increment and Skip if Zero') adds one to a memory word and skips the next instruction if the result wraps around to zero.\n\nThat one instruction is the classic PDP-8 loop counter. Load a counter with the negative of your iteration count (say, negative 5), and ISZ it each pass. It climbs from negative 5 toward zero, and exactly when it hits zero, ISZ skips the JMP that would repeat the loop. You'll see this pattern in almost every PDP-8 program ever written.\n\nThe deeper point: real memory plus a few well-chosen instructions turn looping from a puzzle into a habit. That's a big part of what made the minicomputer practical for everyday work.",
+  "prompt": "Use an ISZ loop to count from 0 up to 5, leaving 5 in the accumulator. Keep a counter that starts at negative 5, and a running SUM that you bump up with ISZ each pass.",
+  "starterCode": "*200\n        CLA CLL\n        TAD MFIVE   / AC = -5\n        DCA CTR     / CTR = -5\n        DCA SUM     / SUM = 0\nLOOP,   ISZ SUM     / SUM = SUM + 1\n        ISZ CTR     / CTR = CTR + 1, skips the JMP when CTR hits 0\n        JMP LOOP\n        TAD SUM     / AC = SUM (which is 5)\n        HLT\nSUM,    0\nCTR,    0\nMFIVE,  -5\n",
+  "hints": [
+    "A counter that starts at -5 reaches 0 after exactly 5 ISZ steps.",
+    "ISZ CTR skips the NEXT instruction when CTR becomes 0, so put JMP LOOP right after it and the loop ends there.",
+    "ISZ SUM bumps your running total each pass, and TAD SUM at the end loads it into AC."
+  ],
+  "success": { "registers": { "AC": 5 }, "halted": true },
+  "successText": "AC must equal 5, counted up by an ISZ loop.",
+  "reference": "*200\n CLA CLL\n TAD MFIVE\n DCA CTR\n DCA SUM\nLOOP, ISZ SUM\n ISZ CTR\n JMP LOOP\n TAD SUM\n HLT\nSUM, 0\nCTR, 0\nMFIVE, -5\n"
+}

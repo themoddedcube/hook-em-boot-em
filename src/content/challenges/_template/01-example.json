@@ -1,0 +1,18 @@
+{
+  "id": "example",
+  "title": "Template: Sum to 42",
+  "lesson": "This is the example challenge for the copyable level template. The toy 'Template VM' has one register (A) and five instructions: SET, ADD, SUB, OUT, HLT.\n\nCopy this challenge file's structure to author real challenges: a `lesson`, a `prompt`, `starterCode`, progressive `hints`, a declarative `success` check, and a `reference` solution used by the automated verifier.",
+  "prompt": "Make register A equal 42 and print it, then halt.",
+  "starterCode": "SET 40\nADD 2\nOUT\nHLT\n",
+  "hints": [
+    "SET puts a value in A; ADD adds to it.",
+    "SET 40 then ADD 2 gives 42. OUT prints it; HLT stops."
+  ],
+  "success": {
+    "registers": { "A": 42 },
+    "output": { "contains": "42" },
+    "halted": true
+  },
+  "successText": "A must equal 42 and the program must print it.",
+  "reference": "SET 40\nADD 2\nOUT\nHLT\n"
+}

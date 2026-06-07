@@ -1,0 +1,15 @@
+{
+  "id": "subroutines-and-stack",
+  "title": "Subroutines and the Stack",
+  "lesson": "Remember how the PDP-8 called subroutines? JMS stored the return address inside the subroutine's own first word. Clever, but it meant a subroutine couldn't safely call itself, and you couldn't nest calls freely. The 8080 fixes this with a hardware stack. CALL pushes the return address onto a stack in memory (pointed to by the Stack Pointer, SP) and jumps; RET pops it back. Because returns stack up last-in, first-out, calls can nest as deep as you like, and they can even recurse.\n\nThe stack is one of the most important ideas in computing. It's how every modern language implements function calls, local variables, and recursion. Set SP somewhere safe with LXI SP, then call away. Here you'll build a tiny print routine and call it once per letter.",
+  "prompt": "Print ALTAIR using a subroutine. Set up the stack with LXI SP, write a PR routine that does OUT then RET, and CALL it for each letter (A=65, L=76, T=84, A, I=73, R=82).",
+  "starterCode": "        LXI SP, 0x1000  ; put the stack at 0x1000\n        MVI A, 'A'\n        CALL PR\n        MVI A, 'L'\n        CALL PR\n        MVI A, 'T'\n        CALL PR\n        MVI A, 'A'\n        CALL PR\n        MVI A, 'I'\n        CALL PR\n        MVI A, 'R'\n        CALL PR\n        HLT\nPR:     OUT 0           ; print the character in A\n        RET             ; return through the stack\n",
+  "hints": [
+    "LXI SP, 0x1000 gives CALL and RET a place to store return addresses.",
+    "CALL PR pushes the return address and jumps to PR; RET pops it to come back.",
+    "Load each letter into A before CALL PR. ALTAIR is 65, 76, 84, 65, 73, 82."
+  ],
+  "success": { "output": { "contains": "ALTAIR" }, "halted": true },
+  "successText": "The terminal output must contain \"ALTAIR\", printed by a subroutine.",
+  "reference": "LXI SP, 0x1000\nMVI A, 'A'\nCALL PR\nMVI A, 'L'\nCALL PR\nMVI A, 'T'\nCALL PR\nMVI A, 'A'\nCALL PR\nMVI A, 'I'\nCALL PR\nMVI A, 'R'\nCALL PR\nHLT\nPR: OUT 0\nRET\n"
+}

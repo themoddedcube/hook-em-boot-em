@@ -1,0 +1,17 @@
+{
+  "id": "wire-an-adder",
+  "title": "Adding by Plugging In Cables",
+  "lesson": "ENIAC did its arithmetic with units called accumulators (it had twenty of them), each able to hold a ten-digit number and add to it. The way you made the machine add was to wire numbers into an accumulator. There was no 'add' instruction. There was just a cable, and a path for the electricity to follow.\n\nThis is the biggest contrast in the whole game. On every other machine you'll visit, adding is an instruction you write. Here, adding is a physical connection you build with your hands. Same idea (a plus b), but the 'program' is the wiring diagram itself.\n\nAn accumulator has appeared, with two input jacks on its left and one output jack on its right. Whatever you feed into its inputs gets added up.",
+  "prompt": "Make the OUTPUT read 8. Wire the two sources (5 and 3) into the accumulator's inputs, then wire the accumulator's output to OUTPUT.",
+  "hints": [
+    "Run a cable from 5 into one accumulator input, and from 3 into the other.",
+    "Then wire the accumulator's output jack to OUTPUT. The accumulator adds its inputs: 5 and 3 make 8."
+  ],
+  "successText": "Add 5 and 3 through the accumulator so OUTPUT reads 8.",
+  "target": 8,
+  "sources": [
+    { "id": "s0", "label": "FIVE", "value": 5 },
+    { "id": "s1", "label": "THREE", "value": 3 }
+  ],
+  "accumulators": [{ "id": "a0", "label": "ACC" }]
+}

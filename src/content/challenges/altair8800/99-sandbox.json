@@ -1,0 +1,10 @@
+{
+  "id": "sandbox",
+  "sandbox": true,
+  "title": "Sandbox, and the $25 Chip",
+  "lesson": "The Altair proved something the giants had missed: ordinary people would buy a computer of their own. Within a year it spawned a whole industry of add-on boards, software, and the Homebrew Computer Club, where a young Steve Wozniak showed off his designs. The personal computer was real.\n\nBut a $439 kit you programmed by flipping switches was still a hobbyist's machine. For computing to reach everyone, the processor itself had to get a lot cheaper, and the machine had to get friendlier. In 1975 a small team at MOS Technology did exactly that: they built the 6502 and sold it for $25, barely a tenth of the 8080's launch price. That one decision put a real CPU within reach of every tinkerer and every company, and it ended up inside the Apple I, the Commodore 64, the Atari, and the NES.\n\nNext stop: 1976, the chip that finished what the Altair started.",
+  "prompt": "Have a play with the 8080. Print messages with OUT, build loops with DCR and JNZ, call subroutines through the stack, or move data around the register pairs. Watch the front-panel LEDs blink, and travel on when you're ready.",
+  "starterCode": "; Sandbox: no goal here. The Altair's 8080 is yours.\n; Prints 'HELLO' from a string in memory using a loop and a subroutine.\n        LXI SP, 0x1000\n        LXI H, MSG       ; HL -> string\nLOOP:   MOV A, M         ; A = current char\n        CPI 0            ; end of string?\n        JZ DONE\n        CALL PR\n        INX H            ; advance the pointer\n        JMP LOOP\nDONE:   HLT\nPR:     OUT 0\n        RET\nMSG:    DB 'H', 'E', 'L', 'L', 'O', 0\n",
+  "hints": [],
+  "success": {}
+}

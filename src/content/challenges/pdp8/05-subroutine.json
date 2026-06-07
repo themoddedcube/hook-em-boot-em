@@ -1,0 +1,15 @@
+{
+  "id": "subroutine",
+  "title": "Reusable Code: The Subroutine",
+  "lesson": "As programs grew, programmers needed to reuse code instead of copying it everywhere. The PDP-8's answer is JMS ('JuMp to Subroutine'), and it works in a clever way that tells you a lot about early machines. When you call JMS PRINT, the processor stores the return address into the first word of the subroutine (at PRINT), then starts running at PRINT plus 1. To return, the subroutine does JMP I PRINT, an indirect jump through that first word, which sends control back to wherever it was called from.\n\nThere's no hardware stack here (that comes later), so a subroutine keeps its return address in its own body. It's simple, it works, and it's the direct ancestor of the function call, the single most important tool for building large software. The Baby had nothing like it.\n\nLet's use a print subroutine to spell out the three letters of the machine that brought you here.",
+  "prompt": "Write a PRINT subroutine (it prints the character in AC, then returns) and call it three times to print P, D, P to the Teletype. ASCII 'P' is 80 and 'D' is 68.",
+  "starterCode": "*200\nSTART,  CLA\n        TAD CP\n        JMS PRINT   / call: prints AC, then returns here\n        CLA\n        TAD CD\n        JMS PRINT\n        CLA\n        TAD CP\n        JMS PRINT\n        HLT\nPRINT,  0           / JMS stores the return address here\n        TLS         / print the character in AC\n        JMP I PRINT / return (indirect through PRINT)\nCP,     80          / 'P'\nCD,     68          / 'D'\n",
+  "hints": [
+    "JMS PRINT stores the return address in the word at PRINT, then runs PRINT plus 1.",
+    "The subroutine prints AC with TLS, then returns with JMP I PRINT (indirect through PRINT).",
+    "Load each letter into AC (CLA then TAD) before calling JMS PRINT. P is 80, D is 68."
+  ],
+  "success": { "output": { "contains": "PDP" }, "halted": true },
+  "successText": "The Teletype output must contain \"PDP\", printed by a subroutine.",
+  "reference": "*200\nSTART, CLA\n TAD CP\n JMS PRINT\n CLA\n TAD CD\n JMS PRINT\n CLA\n TAD CP\n JMS PRINT\n HLT\nPRINT, 0\n TLS\n JMP I PRINT\nCP, 80\nCD, 68\n"
+}

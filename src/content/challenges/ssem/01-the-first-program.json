@@ -1,0 +1,14 @@
+{
+  "id": "the-first-program",
+  "title": "21 June 1948: The First Stored Program",
+  "lesson": "The time machine jumps forward 28 years, from Texas to a lab at the University of Manchester. In front of you is the 'Baby', the Small-Scale Experimental Machine, built by Freddie Williams, Tom Kilburn, and Geoff Tootill. On 21 June 1948 it did something no machine had ever done: it ran a program stored in its own electronic memory. Before this, programming ENIAC meant rewiring it by hand for days. The Baby proved that instructions could live in memory, as data, which is the idea every computer since (including the 6502 you'll meet later) is built on.\n\nThe memory was a Williams-Kilburn tube: a cathode-ray tube whose glowing dots were the bits. You're looking at it now. That 32 by 32 grid is the entire memory, just 32 words of 32 bits. The Baby has exactly one working register, the accumulator (A), and only seven instructions.\n\nAnd here's the first surprise: there is no 'load' instruction. The only way to get a value into the accumulator is LDN, Load Negative, which loads the negation of a memory word. So to end up with positive 7, you store negative 7 in memory and load its negative.",
+  "prompt": "Get the value 7 into the accumulator (A), then STP to stop. Remember: LDN loads the negative of a word, and NUM defines a data word.",
+  "starterCode": "; LDN <line> sets A to the negative of the value at that line.\n; Fill in the data word so A ends up as 7.\n        LDN seven\n        STP\nseven:  NUM 0      ; change this value\n",
+  "hints": [
+    "LDN loads the NEGATIVE of a word. To get positive 7 in A, what should the word hold?",
+    "Store negative 7 in the data word: NUM -7. Then LDN of it gives you A = 7."
+  ],
+  "success": { "registers": { "A": 7 }, "halted": true },
+  "successText": "The accumulator A must equal 7 when the machine stops.",
+  "reference": "LDN seven\nSTP\nseven: NUM -7\n"
+}

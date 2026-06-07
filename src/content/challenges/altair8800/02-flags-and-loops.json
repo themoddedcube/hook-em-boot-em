@@ -1,0 +1,15 @@
+{
+  "id": "flags-and-loops",
+  "title": "Flags and Loops",
+  "lesson": "The 8080 keeps a flag register that records facts about the last result: Zero (Z), Sign (S), Carry (CY), Parity (P), and Auxiliary Carry (AC). Arithmetic and logic instructions set these automatically, and conditional jumps read them. JNZ jumps while Z is clear, JZ while it's set, JC on a carry, and so on.\n\nThe everyday loop pattern is DCR (decrement a register, which sets the flags) followed by JNZ back to the top, repeating until the counter reaches zero. It's the same idea as the PDP-8's ISZ loop and the 6502's DEX and BNE you'll meet next: a counter, a test, a branch. Once you can spot it, you can read a loop in any assembly language.",
+  "prompt": "Work out 5 plus 4 plus 3 plus 2 plus 1, which is 15. Keep the running sum in A and a counter in B (start it at 5). Each pass, add B to A and DCR B, looping with JNZ while B is not zero.",
+  "starterCode": "        MVI A, 0     ; sum = 0\n        MVI B, 5     ; counter = 5\nLOOP:   ADD B        ; A = A + B\n        DCR B        ; B = B - 1 (sets the Zero flag when it hits 0)\n        JNZ LOOP     ; loop while B is not 0\n        HLT\n",
+  "hints": [
+    "DCR B decrements B and updates the flags.",
+    "JNZ LOOP jumps back as long as the last result wasn't zero, so the loop ends when B reaches 0.",
+    "Add B before decrementing it: 5 plus 4 plus 3 plus 2 plus 1 is 15."
+  ],
+  "success": { "registers": { "A": 15 }, "halted": true },
+  "successText": "Register A must equal 15 at the halt.",
+  "reference": "MVI A, 0\nMVI B, 5\nLOOP: ADD B\nDCR B\nJNZ LOOP\nHLT\n"
+}

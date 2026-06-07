@@ -1,0 +1,17 @@
+{
+  "id": "first-light",
+  "title": "First Light: Draw a Pixel",
+  "lesson": "Here's the trick that made home computers possible: memory-mapped video. A chunk of ordinary memory IS the screen. On this machine, the 32 by 32 display lives at addresses $0200 through $05FF, one byte per pixel, scanning left to right, top to bottom. Write a number to one of those bytes and a pixel lights up. The low 4 bits pick a colour (0 is black, 1 is white, 2 is red, and so on up to 8, which is orange, burnt orange, naturally).\n\nThere's no special 'draw' instruction. You just STA (STore the Accumulator) into screen memory. Hardware and software, the same address space. That's the whole idea.",
+  "prompt": "Light up the top-left pixel. Store the colour value $01 (white) into address $0200.",
+  "starterCode": "; Put a colour in A, then store it to a screen address.\n; The screen starts at $0200 (the top-left pixel).\nLDA #$01\nSTA $0200\nBRK\n",
+  "hints": [
+    "The top-left pixel is address $0200.",
+    "LDA #$01 puts white in A, and STA $0200 writes it to the screen."
+  ],
+  "success": {
+    "memoryEquals": [{ "addr": 512, "value": 1, "label": "The top-left pixel ($0200)" }],
+    "halted": true
+  },
+  "successText": "Address $0200 (the top-left pixel) must hold a white value ($01).",
+  "reference": "LDA #$01\nSTA $0200\nBRK\n"
+}

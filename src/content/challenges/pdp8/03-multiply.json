@@ -1,0 +1,15 @@
+{
+  "id": "multiply",
+  "title": "There's No Multiply Instruction",
+  "lesson": "The PDP-8 can add (TAD) but it cannot multiply. There's no MUL in the hardware. Just like the Baby built addition out of subtraction, you build multiplication out of addition: to work out 6 times 4, you add 6 to a running total four times. A loop with a counter does exactly that.\n\nThis is a pattern you'll meet again and again, in this game and in real life. The hardware gives you a small set of basic moves, and software combines them into everything else. A 1965 minicomputer multiplied this way millions of times a second, fast enough to be useful, but also a reminder of why later machines added hardware multipliers, and why we eventually wanted far more powerful processors.",
+  "prompt": "Work out 6 times 4, which is 24, by adding 6 to a running total four times with an ISZ loop. Leave 24 in the accumulator.",
+  "starterCode": "*200\n        CLA CLL\n        TAD MFOUR   / AC = -4  (loop 4 times)\n        DCA CTR\n        DCA SUM     / SUM = 0\nLOOP,   TAD SUM\n        TAD SIX     / SUM = SUM + 6\n        DCA SUM\n        ISZ CTR     / count this pass, skip the JMP when done\n        JMP LOOP\n        TAD SUM     / AC = 24\n        HLT\nSUM,    0\nCTR,    0\nMFOUR,  -4\nSIX,    6\n",
+  "hints": [
+    "Multiplying 6 by 4 just means adding 6 four times.",
+    "Each pass: load SUM, TAD SIX, store it back to SUM. Use a -4 counter with ISZ to run the loop four times.",
+    "After the loop, TAD SUM puts the product (24) in AC."
+  ],
+  "success": { "registers": { "AC": 24 }, "halted": true },
+  "successText": "AC must equal 24 (that's 6 times 4), built from repeated addition.",
+  "reference": "*200\n CLA CLL\n TAD MFOUR\n DCA CTR\n DCA SUM\nLOOP, TAD SUM\n TAD SIX\n DCA SUM\n ISZ CTR\n JMP LOOP\n TAD SUM\n HLT\nSUM, 0\nCTR, 0\nMFOUR, -4\nSIX, 6\n"
+}

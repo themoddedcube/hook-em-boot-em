@@ -1,0 +1,23 @@
+{
+  "id": "the-firing-table",
+  "title": "A Bigger Sum",
+  "lesson": "Real ENIAC programs chained many accumulators together, feeding the output of one into the input of the next, to work through the long arithmetic of a shell's trajectory. The wiring sprawled across the room's forty panels, and when the answer came out wrong, you debugged by tracing cables, not by reading code.\n\nNow you have four sources and two accumulators. Combine them so the final OUTPUT lands on the target. You'll need to fill both accumulators and then add them together at the OUTPUT, chaining adders just like ENIAC's operators did.",
+  "prompt": "Make the OUTPUT read 17 using all four sources (2, 3, 5, 7) and both accumulators. Add two sources in each accumulator, then wire both accumulators into the OUTPUT.",
+  "hints": [
+    "Each accumulator adds its two inputs, so two accumulators give you two partial sums.",
+    "Put 2 and 3 into one accumulator (that's 5), and 5 and 7 into the other (that's 12).",
+    "Then wire both accumulator outputs into OUTPUT: 5 plus 12 is 17."
+  ],
+  "successText": "Chain the accumulators so OUTPUT reads 17 (2 + 3 + 5 + 7).",
+  "target": 17,
+  "sources": [
+    { "id": "s0", "label": "TWO", "value": 2 },
+    { "id": "s1", "label": "THREE", "value": 3 },
+    { "id": "s2", "label": "FIVE", "value": 5 },
+    { "id": "s3", "label": "SEVEN", "value": 7 }
+  ],
+  "accumulators": [
+    { "id": "a0", "label": "ACC 1" },
+    { "id": "a1", "label": "ACC 2" }
+  ]
+}

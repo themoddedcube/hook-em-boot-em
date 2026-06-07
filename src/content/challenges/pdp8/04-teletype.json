@@ -1,0 +1,15 @@
+{
+  "id": "teletype",
+  "title": "Talking to the World: The Teletype",
+  "lesson": "Here's something the Manchester Baby simply could not do: communicate. The Baby had no input or output at all. You read answers off the glowing tube with your eyes. The PDP-8 came with a Teletype Model 33: a clattering electromechanical terminal with a keyboard and a printer, plus a paper-tape reader for loading programs. Suddenly a computer could read data in and print results out, all on its own. This is what turned computers from demonstrations into tools that did real work.\n\nInput and output happen through the IOT instruction ('In/Out Transfer'). To print a character, you put its 7-bit ASCII code in the accumulator and run TLS ('Teleprinter Load and Start'). The printer hammers out the character. That's all there was to it. That's how a 1965 computer said hello.",
+  "prompt": "Print the two characters H and I to the Teletype (watch the Console). ASCII 'H' is 72 and 'I' is 73. Load each code into AC and print it with TLS.",
+  "starterCode": "*200\n        CLA\n        TAD H    / AC = 'H' (72)\n        TLS      / print AC as a character\n        CLA\n        TAD I2   / AC = 'I' (73)\n        TLS\n        HLT\nH,      72\nI2,     73\n",
+  "hints": [
+    "Put a character's ASCII code in AC (with TAD H), then TLS prints it.",
+    "TLS doesn't change AC, so CLA before loading the next character.",
+    "'H' is 72 and 'I' is 73, so print them in order to spell HI."
+  ],
+  "success": { "output": { "contains": "HI" }, "halted": true },
+  "successText": "The Teletype output must contain \"HI\".",
+  "reference": "*200\n CLA\n TAD H\n TLS\n CLA\n TAD I2\n TLS\n HLT\nH, 72\nI2, 73\n"
+}

@@ -1,0 +1,15 @@
+{
+  "id": "array-sum",
+  "title": "Walking an Array",
+  "lesson": "Here's the program that ties the whole journey together, and one you'll write for real in EE 306. To work through a list, you keep a pointer in a register and walk it forward, one element at a time. LDR ('Load Register') uses base-plus-offset addressing: LDR R3, R1, #0 loads the word at the address in R1 (plus the offset 0). Increment the pointer each pass and you've traversed an array.\n\nThink about what you've seen. The Baby couldn't even add. The PDP-8 added but had one accumulator and indirect pointers you managed by hand. The 6502 gave you indexed addressing for arrays. The LC-3 gives you a clean, general pointer-plus-offset load, the same idea as a C array access, a[i], which compiles to almost exactly this. You're now reading, in assembly, the machinery underneath every program you'll ever write.",
+  "prompt": "Add up the five numbers stored in the array ARR (10, 20, 3, 7, 5, which total 45) using a pointer and LDR in a loop. Leave the total in R0.",
+  "starterCode": ".ORIG x3000\n        AND R0, R0, #0     ; sum = 0\n        LEA R1, ARR        ; R1 points at the first element\n        AND R2, R2, #0\n        ADD R2, R2, #5     ; count = 5\nLOOP    LDR R3, R1, #0     ; R3 = the element R1 points to\n        ADD R0, R0, R3     ; sum = sum + element\n        ADD R1, R1, #1     ; advance the pointer\n        ADD R2, R2, #-1    ; count = count - 1\n        BRp LOOP\n        HALT\nARR     .FILL #10\n        .FILL #20\n        .FILL #3\n        .FILL #7\n        .FILL #5\n.END\n",
+  "hints": [
+    "LEA R1, ARR points R1 at the first array element.",
+    "LDR R3, R1, #0 loads the element the pointer is on, and ADD R1, R1, #1 moves to the next.",
+    "Use a counter (R2 = 5) and BRp to loop exactly five times. The total is 45."
+  ],
+  "success": { "registers": { "R0": 45 }, "halted": true },
+  "successText": "R0 must equal 45 (the sum of the array) at the halt.",
+  "reference": ".ORIG x3000\nAND R0, R0, #0\nLEA R1, ARR\nAND R2, R2, #0\nADD R2, R2, #5\nLOOP LDR R3, R1, #0\nADD R0, R0, R3\nADD R1, R1, #1\nADD R2, R2, #-1\nBRp LOOP\nHALT\nARR .FILL #10\n.FILL #20\n.FILL #3\n.FILL #7\n.FILL #5\n.END\n"
+}

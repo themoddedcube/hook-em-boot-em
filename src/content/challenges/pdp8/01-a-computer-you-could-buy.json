@@ -1,0 +1,14 @@
+{
+  "id": "a-computer-you-could-buy",
+  "title": "1965: A Computer You Could Actually Buy",
+  "lesson": "Seventeen years after the Baby, the time machine stops in 1965. In front of you is a DEC PDP-8, about the size of a fridge, with a front panel of switches and blinking lamps. This is the machine that changed who got to use computers. An IBM mainframe cost hundreds of thousands of dollars and lived in a guarded room with its own staff. The PDP-8 cost about $18,500, ran on ordinary power, and could sit on a lab bench. DEC sold around 50,000 of them, the first minicomputer that was a real hit. For the first time, a single research group, factory, or hospital could own a computer outright.\n\nArchitecturally it's a big step up from the Baby. Words are 12 bits, memory is 4096 words, and there's a one-bit Link (L) that catches carries. And, at last, it can really add: TAD ('Two's-complement ADd') adds a memory word to the accumulator. (The PDP-8 world counted in octal. We'll use decimal here for clarity, but it's worth knowing the real programmers thought in base 8.)\n\nNotice the new convenience in addressing: instructions name a memory spot by label, and the assembler works out how to reach it. You're no longer placing every word by hand.",
+  "prompt": "Work out 5 plus 7 and leave 12 in the accumulator (AC). Start by clearing AC with CLA, then use TAD to add each value. Finish with HLT.",
+  "starterCode": "*200            / the program loads at location 200\n        CLA     / AC = 0\n        TAD A   / AC = AC + 5\n        TAD B   / AC = AC + 7\n        HLT\nA,      5\nB,      7\n",
+  "hints": [
+    "CLA clears the accumulator to 0.",
+    "TAD A adds the value stored at label A. Do it twice: TAD A then TAD B."
+  ],
+  "success": { "registers": { "AC": 12 }, "halted": true },
+  "successText": "AC must equal 12 (that's 5 plus 7) at the halt.",
+  "reference": "*200\n CLA\n TAD A\n TAD B\n HLT\nA, 5\nB, 7\n"
+}

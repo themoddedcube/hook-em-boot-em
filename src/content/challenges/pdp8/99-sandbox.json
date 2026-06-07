@@ -1,0 +1,10 @@
+{
+  "id": "sandbox",
+  "sandbox": true,
+  "title": "Sandbox, and the Shrinking Machine",
+  "lesson": "The PDP-8 put a real computer, with memory, loops, subroutines, and a Teletype, into tens of thousands of labs, factories, and hospitals. Computing had escaped the guarded mainframe room. But a minicomputer still cost around $18,500 and filled a cabinet the size of a fridge. You didn't have one at home. Your school might share one.\n\nThe reason it took a whole cabinet: the processor was built from hundreds of separate logic chips wired together on boards. Then the integrated circuit kept shrinking, packing more and more transistors onto a single sliver of silicon, until, in the early 1970s, an entire CPU fit on one chip. That chip was the microprocessor, and it cost not thousands of dollars but hundreds, and soon tens. For the first time, a single person could afford a whole computer.\n\nNext stop: 1974, and a computer you build yourself from a $439 mail-order kit, the spark that lit the personal-computer revolution.",
+  "prompt": "Have a play. Try printing your own message to the Teletype, writing an ISZ loop, or building a routine of your own. Watch the front-panel lamps (AC, PC, MB) blink as it runs, and travel on when you're ready.",
+  "starterCode": "/ Sandbox: no goal here. Try your own PDP-8 code!\n/ This prints 'HELLO' using a print subroutine and a counted loop.\n*200\nSTART,  CLA CLL\n        TAD MLEN     / AC = -(length)\n        DCA CTR\n        TAD MPTR     / set up a pointer into the text\n        DCA PTR\nLOOP,   CLA          / clear AC (TAD adds, so start from 0)\n        TAD I PTR    / AC = next character\n        JMS PRINT\n        ISZ PTR\n        ISZ CTR\n        JMP LOOP\n        HLT\nPRINT,  0\n        TLS\n        JMP I PRINT\nPTR,    0\nCTR,    0\nMLEN,   -5\nMPTR,   TEXT\nTEXT,   72           / H\n        69           / E\n        76           / L\n        76           / L\n        79           / O\n",
+  "hints": [],
+  "success": {}
+}

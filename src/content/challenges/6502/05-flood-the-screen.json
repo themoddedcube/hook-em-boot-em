@@ -1,0 +1,19 @@
+{
+  "id": "flood-the-screen",
+  "title": "Flood the Screen: Pointers",
+  "lesson": "The whole screen is 1024 bytes, four pages, but STA $0200,X can only reach 256 of them, because X tops out at 255. To cover all four pages you have to change the base address itself. That means a pointer: two bytes in zero page (the fast $00 to $FF region) that together hold a 16-bit address.\n\nThe instruction STA ($10),Y reads a 16-bit address out of $10 and $11 (low byte, then high byte), adds Y, and stores there. Fill one page with the Y-loop, then INC the high byte of the pointer to move to the next page, and repeat four times. This indirect-indexed mode is how the 6502 walks through arrays and buffers, the same idea as a C pointer, invented decades before C made it famous. This is the capstone: paint the whole screen.",
+  "prompt": "Fill the entire 32 by 32 screen ($0200 to $05FF, all 1024 bytes) with a single non-black colour. Use a zero-page pointer and STA ($nn),Y, moving the pointer one page at a time.",
+  "starterCode": "; A 16-bit pointer lives in two zero-page bytes: $10 (low), $11 (high).\ndefine ptrLo $10\ndefine ptrHi $11\n\nLDA #$00\nSTA ptrLo      ; pointer low byte = $00\nLDA #$02\nSTA ptrHi      ; pointer high byte = $02, so the pointer is $0200\n\nLDA #$08       ; the colour to paint (burnt orange)\nLDX #$04       ; 4 pages to fill\nLDY #$00\nloop:\n  STA (ptrLo),Y  ; store the colour at pointer + Y\n  INY\n  BNE loop       ; fill all 256 bytes of this page\n  INC ptrHi      ; move the pointer to the next page\n  DEX\n  BNE loop       ; repeat for 4 pages\nBRK\n",
+  "hints": [
+    "The screen is 1024 bytes, which is four 256-byte pages, $0200 to $05FF.",
+    "Put the start address $0200 into a zero-page pointer: low byte $00 at $10, high byte $02 at $11.",
+    "Inner loop: STA (ptrLo),Y then INY then BNE fills one page. Then INC ptrHi and DEX to move to the next page.",
+    "Keep the colour in A the whole time. INY, INC, and DEX don't touch A."
+  ],
+  "success": {
+    "rangeAllNonZero": { "start": 512, "length": 1024, "label": "The whole screen ($0200 to $05FF)" },
+    "halted": true
+  },
+  "successText": "All 1024 screen bytes ($0200 to $05FF) must be painted.",
+  "reference": "define ptrLo $10\ndefine ptrHi $11\nLDA #$00\nSTA ptrLo\nLDA #$02\nSTA ptrHi\nLDA #$08\nLDX #$04\nLDY #$00\nloop:\n  STA (ptrLo),Y\n  INY\n  BNE loop\n  INC ptrHi\n  DEX\n  BNE loop\nBRK\n"
+}

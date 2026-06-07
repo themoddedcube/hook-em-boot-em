@@ -1,0 +1,15 @@
+{
+  "id": "register-pairs",
+  "title": "Sixteen-Bit Reach: Register Pairs",
+  "lesson": "An 8-bit register holds 0 to 255, far too small to be a memory address in a 64 KB machine. The 8080's trick is to pair its registers up: B with C, D with E, and H with L each combine into a 16-bit value. The HL pair is special: it acts as a pointer, and the pseudo-register M means 'the byte in memory that HL points to'. So MOV M, A stores A where HL points, and MOV A, M reads it back.\n\nLXI loads a whole 16-bit pair at once (LXI H, 0x0200 sets HL to 0x0200). This idea, ganging small registers together to reach big memory, is exactly the bridge between the PDP-8's 12-bit world and the flat address spaces of modern machines.",
+  "prompt": "Point HL at address 0x0200, store the value 42 there (through M), then read it back into A. End with A equal to 42.",
+  "starterCode": "        LXI H, 0x0200  ; HL = 0x0200\n        MVI M, 42      ; memory[HL] = 42\n        MVI A, 0\n        MOV A, M       ; A = memory[HL]\n        HLT\n",
+  "hints": [
+    "LXI H, 0x0200 sets the HL pair to the address 0x0200.",
+    "M means the byte HL points to: MVI M, 42 writes there, and MOV A, M reads it.",
+    "Clear A first, so you can prove the read really loaded 42."
+  ],
+  "success": { "registers": { "A": 42 }, "halted": true },
+  "successText": "Register A must equal 42, read back from memory through HL.",
+  "reference": "LXI H, 0x0200\nMVI M, 42\nMVI A, 0\nMOV A, M\nHLT\n"
+}

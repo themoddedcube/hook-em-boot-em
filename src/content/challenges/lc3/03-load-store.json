@@ -1,0 +1,15 @@
+{
+  "id": "load-store",
+  "title": "A Load-Store Machine",
+  "lesson": "The LC-3 is a load-store machine, the design philosophy behind essentially every modern processor (ARM, MIPS, and the rest). The rule is simple: arithmetic happens only in registers, and memory is touched only by explicit load and store instructions. You LD a value from memory into a register, do your work, then ST the result back.\n\nLD R0, A reads the word labeled A into R0. How does it find A? PC-relative addressing: the assembler works out the distance from the next instruction to the label and bakes that offset into the instruction, the same trick the 6502's branches used, now applied to data. The .FILL directive drops a constant word into memory with a label.\n\nThis clean split (compute in registers, move data on purpose) is what makes pipelining and high performance possible in real chips. It's why your phone's CPU works this way.",
+  "prompt": "Load the two numbers stored at A (10) and B (20) into registers, add them, and leave the sum (30) in R0. Use LD and .FILL.",
+  "starterCode": ".ORIG x3000\n        LD R0, A      ; R0 = the value at A\n        LD R1, B      ; R1 = the value at B\n        ADD R0, R0, R1\n        HALT\nA       .FILL #10\nB       .FILL #20\n.END\n",
+  "hints": [
+    "LD R0, A loads the word labeled A into R0 (PC-relative).",
+    ".FILL #10 places the constant 10 in memory at that label.",
+    "Add R0 and R1, and the sum (30) ends up in R0."
+  ],
+  "success": { "registers": { "R0": 30 }, "halted": true },
+  "successText": "R0 must equal 30 (that's 10 plus 20), loaded from memory.",
+  "reference": ".ORIG x3000\nLD R0, A\nLD R1, B\nADD R0, R0, R1\nHALT\nA .FILL #10\nB .FILL #20\n.END\n"
+}

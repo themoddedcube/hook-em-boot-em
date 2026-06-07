@@ -1,0 +1,14 @@
+{
+  "id": "eight-registers",
+  "title": "Coming Home: The LC-3",
+  "lesson": "The time machine makes its last jump, not to a museum, but to your own classroom. This is the LC-3, the teaching computer designed by Professor Yale Patt right here at UT Austin (with Sanjay Patel) for the textbook 'Introduction to Computing Systems'. It's the ISA you study in EE 306. It never existed as physical hardware. It's an idealized machine, built purely so students can learn how every computer really works.\n\nAnd look how far we've come. The Manchester Baby had one register. The PDP-8 had one accumulator plus a Link bit. The 6502 had three. The LC-3 gives you eight general-purpose registers, R0 through R7, each 16 bits wide. More registers means fewer trips to memory and cleaner code, one of the quiet but constant themes in how architecture has evolved.\n\nADD works two ways: add two registers (ADD R0, R1, R2) or add a small constant (ADD R0, R1, #5). Every instruction that writes a register also sets the condition codes N, Z, and P. You'll use those next.",
+  "prompt": "Put 5 in R1, 7 in R2, then add them into R0 (so R0 ends up at 12). End with HALT. Programs begin with .ORIG x3000 and end with .END.",
+  "starterCode": ".ORIG x3000\n        ADD R1, R1, #5   ; R1 = 0 + 5\n        ADD R2, R2, #7   ; R2 = 0 + 7\n        ADD R0, R1, R2   ; R0 = R1 + R2\n        HALT\n.END\n",
+  "hints": [
+    "Registers start at 0, so ADD R1, R1, #5 leaves 5 in R1.",
+    "ADD R0, R1, R2 stores R1 plus R2 into R0."
+  ],
+  "success": { "registers": { "R0": 12 }, "halted": true },
+  "successText": "R0 must equal 12 (that's 5 plus 7) at the halt.",
+  "reference": ".ORIG x3000\nADD R1, R1, #5\nADD R2, R2, #7\nADD R0, R1, R2\nHALT\n.END\n"
+}

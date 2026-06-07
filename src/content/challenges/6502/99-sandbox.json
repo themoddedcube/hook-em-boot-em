@@ -1,0 +1,10 @@
+{
+  "id": "sandbox",
+  "sandbox": true,
+  "title": "Sandbox, and the Road to the Present",
+  "lesson": "From a wall of racks weighing a tonne to a sliver of silicon smaller than your fingernail, for $25. The microprocessor collapsed an entire computer onto one chip and made computing personal: the Apple I, the Commodore 64, the NES, and eventually the world you grew up in.\n\nTwo frontiers still lie ahead. First, raw assembly is unforgiving, and every chip speaks a different dialect, so universities teach on a clean, idealized instruction set built for learning: the LC-3, designed at UT Austin by Yale Patt, the very ISA in the EE 306 textbook. Second, when a single processor isn't enough, you wire together tens of thousands of them. That's a supercomputer, and some of the most powerful on Earth, TACC's Frontera and Vista, are humming right now a short walk across the Forty Acres.\n\nThe journey that began with a 52-minute factorization on a tonne of valves in Manchester ends on your own campus, at one of the fastest machines in the world. You've felt every leap that got us here.",
+  "prompt": "Paint whatever you like on the 32 by 32 screen, or write your own routine and watch the registers change. No goal here, this is your canvas.",
+  "starterCode": "; Sandbox: no goal here. Make the screen your own!\n; This paints a striped gradient across the top of the screen,\n; colouring each pixel by its position.\n        LDX #$00\nloop:   TXA          ; A = X\n        AND #$0F     ; keep the low nibble, a colour 0..15\n        STA $0200,X  ; paint pixel X\n        INX\n        BNE loop     ; fill the first 256 pixels\n        BRK\n",
+  "hints": [],
+  "success": {}
+}

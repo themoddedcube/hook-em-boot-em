@@ -1,0 +1,18 @@
+{
+  "id": "paint-a-line",
+  "title": "Paint a Line: The First Loop",
+  "lesson": "Storing 32 pixels with 32 separate STA instructions would be miserable. This is exactly the problem index registers solve. STA $0200,X stores to address $0200 plus X, so if you increment X and repeat, you sweep right across memory.\n\nThe loop is the heart of all programming, and on the 6502 it looks like this: do the work, INX (increment X), compare X to a limit with CPX, and BNE (Branch if Not Equal) back to the top. CPX sets the Zero flag when X equals the value, and BNE keeps looping while it's clear. It's the same loop you'll write in EE 306, just a little closer to the metal.",
+  "prompt": "Fill the whole top row of the screen, all 32 pixels from $0200 to $021F, with any non-black colour, using a loop.",
+  "starterCode": "; Fill 32 pixels, using X as the index.\nLDX #$00       ; X = 0\nLDA #$08       ; burnt orange\nloop:\n  STA $0200,X  ; screen[$0200 + X] = A\n  INX          ; X = X + 1\n  CPX #$20     ; compare X with 32\n  BNE loop     ; loop while X is not 32\nBRK\n",
+  "hints": [
+    "The top row is 32 pixels wide, and 32 is $20 in hex.",
+    "STA $0200,X writes to $0200 plus X. Increment X each pass with INX.",
+    "Stop when X reaches $20: CPX #$20 then BNE loop."
+  ],
+  "success": {
+    "rangeAllNonZero": { "start": 512, "length": 32, "label": "The top row ($0200 to $021F)" },
+    "halted": true
+  },
+  "successText": "Every pixel from $0200 to $021F must be painted (non-black).",
+  "reference": "LDX #$00\nLDA #$08\nloop:\n  STA $0200,X\n  INX\n  CPX #$20\n  BNE loop\nBRK\n"
+}

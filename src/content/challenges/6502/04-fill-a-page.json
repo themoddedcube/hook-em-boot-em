@@ -1,0 +1,18 @@
+{
+  "id": "fill-a-page",
+  "title": "Fill a Page: When the Counter Wraps",
+  "lesson": "The 6502's registers are 8 bits, so they count 0 to 255 and then wrap back to 0. That's not a bug to avoid, it's a tool. A 'page' is 256 bytes ($00 to $FF), and the screen is exactly four pages tall. The top quarter of the screen is one full page: $0200 to $02FF.\n\nHere's the neat trick: load X with 0, store, INX, and BNE, with no CPX at all. After 255, INX wraps X back to 0, which sets the Zero flag, and BNE falls through. One loop, exactly 256 passes, no comparison needed. Early programmers squeezed cycles like this constantly, because on a 1 MHz chip, every instruction counted.",
+  "prompt": "Fill the top quarter of the screen, the whole 256-byte page from $0200 to $02FF, with a single non-black colour. Use the counter-wrap trick (no CPX needed).",
+  "starterCode": "; Fill one 256-byte page. Let X wrap from 255 back to 0.\nLDX #$00\nLDA #$05       ; green\nloop:\n  STA $0200,X\n  INX\n  BNE loop     ; loops until X wraps back to 0\nBRK\n",
+  "hints": [
+    "A page is 256 bytes: $0200 through $02FF.",
+    "INX after 255 wraps X to 0 and sets the Zero flag, so BNE then exits.",
+    "No CPX is needed: STA $0200,X then INX then BNE loop runs exactly 256 times."
+  ],
+  "success": {
+    "rangeAllNonZero": { "start": 512, "length": 256, "label": "The top page ($0200 to $02FF)" },
+    "halted": true
+  },
+  "successText": "All 256 bytes from $0200 to $02FF must be painted.",
+  "reference": "LDX #$00\nLDA #$05\nloop:\n  STA $0200,X\n  INX\n  BNE loop\nBRK\n"
+}

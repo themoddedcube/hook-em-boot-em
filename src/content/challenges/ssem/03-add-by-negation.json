@@ -1,0 +1,14 @@
+{
+  "id": "add-by-negation",
+  "title": "Adding, the Hard Way",
+  "lesson": "So how do you do useful math on a machine that can't add? With a little algebra. Subtraction plus negation gives you addition for free:\n\n    a + b  =  the negative of ( (negative a) minus b )\n\nRead it from the inside out: start with negative a (LDN of a), subtract b to get negative a minus b, which is the negative of (a plus b). Store that, then load its negative to get a plus b back. Three of the Baby's seven instructions (LDN, SUB, STO) plus a scratch word in memory are all you need.\n\nThis is the same kind of thinking that lets a modern CPU build multiplication out of shifts and adds, or build every logic gate out of NAND. A small, well-chosen instruction set is a starting kit, and everything else is just a combination of those pieces. The Baby is the purest example of that idea in the whole history of computing.",
+  "prompt": "Work out 6 plus 9 using only LDN, SUB, and STO (there's still no ADD). Leave 15 in the accumulator, then STP.",
+  "starterCode": "; a + b is the negative of (-a - b). Use a scratch word 't' for the middle step.\n        LDN a      ; A = -6\n        SUB b      ; A = -6 - 9 = -15\n        STO t      ; t = -15\n        LDN t      ; A = 15\n        STP\na:      NUM 6\nb:      NUM 9\nt:      NUM 0\n",
+  "hints": [
+    "Start with negative a: LDN a gives you A = -6.",
+    "SUB b gives you A = -6 - 9, which is the negative of (6 + 9). Store it, then LDN it to flip the sign back."
+  ],
+  "success": { "registers": { "A": 15 }, "halted": true },
+  "successText": "A must equal 15 (that's 6 plus 9) at the stop.",
+  "reference": "LDN a\nSUB b\nSTO t\nLDN t\nSTP\na: NUM 6\nb: NUM 9\nt: NUM 0\n"
+}

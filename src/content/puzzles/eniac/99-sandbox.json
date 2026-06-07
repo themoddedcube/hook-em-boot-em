@@ -1,0 +1,19 @@
+{
+  "id": "sandbox",
+  "sandbox": true,
+  "title": "Sandbox, and the Idea That Changed Everything",
+  "lesson": "You've now felt what made ENIAC both miraculous and maddening. It could work out in seconds what took people days, but reprogramming it meant days of rewiring by hand. The machine's logic lived in its cables, not in its memory.\n\nThe people who built and ran ENIAC saw the problem clearly, and so did a mathematician named John von Neumann, who wrote it up in 1945. The fix was a bold one: what if the program lived in the same memory as the data, as numbers the machine could read, change, and run? Then reprogramming would just mean loading new numbers instead of rewiring a room. That idea, the stored-program computer, is the foundation of every machine that comes next, and of this whole journey.\n\nThe first machine to actually run a stored program switched on three years later, in a lab in Manchester. That's where you're headed.",
+  "prompt": "Have a play. Wire the patch panel however you like and watch the output change. There's no target here, so when you're ready, travel on to 1948.",
+  "hints": [],
+  "target": 0,
+  "sources": [
+    { "id": "s0", "label": "ONE", "value": 1 },
+    { "id": "s1", "label": "TWO", "value": 2 },
+    { "id": "s2", "label": "FOUR", "value": 4 },
+    { "id": "s3", "label": "EIGHT", "value": 8 }
+  ],
+  "accumulators": [
+    { "id": "a0", "label": "ACC 1" },
+    { "id": "a1", "label": "ACC 2" }
+  ]
+}

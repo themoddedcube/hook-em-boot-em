@@ -1,0 +1,14 @@
+{
+  "id": "patch-a-wire",
+  "title": "1945: Software Was Wiring",
+  "lesson": "Let's start at the very beginning. This is ENIAC, switched on in 1945 at the University of Pennsylvania. It filled a room: 30 tons of equipment, around 18,000 vacuum tubes, 150 kilowatts of power. It was the first general-purpose electronic computer, built to crank out artillery firing tables for the U.S. Army.\n\nHere's what makes ENIAC feel so strange. It had no stored program. There was no memory full of instructions and nothing to type. To 'program' it, a team of operators (among them six brilliant women mathematicians) physically rewired the machine, plugging in hundreds of patch cables and flipping thousands of switches by hand. Setting up a new program could take days. Software was, quite literally, hardware.\n\nLet's get a feel for it. On the right is a patch panel. A SOURCE on the left puts out a number, and the OUTPUT on the right is your answer. Click a source's output jack, then the output jack, to run a cable between them.",
+  "prompt": "Run a cable straight from the source (it puts out 42) to the OUTPUT, so the output reads 42.",
+  "hints": [
+    "Click the round jack on the right of the source, then the jack on the OUTPUT.",
+    "Made a mistake? Click a cable to remove it."
+  ],
+  "successText": "Wire the source to OUTPUT so it reads 42.",
+  "target": 42,
+  "sources": [{ "id": "s0", "label": "SOURCE", "value": 42 }],
+  "accumulators": []
+}

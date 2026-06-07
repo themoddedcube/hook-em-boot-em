@@ -1,0 +1,15 @@
+{
+  "id": "talking-out",
+  "title": "Talking Out",
+  "lesson": "The bare Altair had no keyboard or screen. You programmed it by flipping the front-panel toggle switches to enter binary, one byte at a time, and read results off the blinking LEDs. Hobbyists quickly added a Teletype or a serial terminal, connected through an I/O port. The 8080 reaches ports with two instructions: OUT sends the accumulator to a port (here, the terminal), and IN reads one in.\n\nThat humble OUT instruction is the ancestor of everything your computer does to talk to the outside world. Every keystroke, pixel, and network packet eventually passes through port-style I/O. Here, OUT prints the character whose code is in A.",
+  "prompt": "Print the two characters H and I to the terminal. Load each ASCII code into A ('H' is 72, 'I' is 73) and send it with OUT.",
+  "starterCode": "        MVI A, 'H'   ; A = 72\n        OUT 0        ; send A to the terminal\n        MVI A, 'I'\n        OUT 0\n        HLT\n",
+  "hints": [
+    "A character literal like 'H' assembles to its ASCII code (72).",
+    "OUT 0 sends the byte in A to output port 0 (the terminal).",
+    "Load and OUT each letter in turn to spell HI."
+  ],
+  "success": { "output": { "contains": "HI" }, "halted": true },
+  "successText": "The terminal output must contain \"HI\".",
+  "reference": "MVI A, 'H'\nOUT 0\nMVI A, 'I'\nOUT 0\nHLT\n"
+}

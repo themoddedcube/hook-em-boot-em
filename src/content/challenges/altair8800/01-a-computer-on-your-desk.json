@@ -1,0 +1,14 @@
+{
+  "id": "a-computer-on-your-desk",
+  "title": "1974: A Computer on Your Desk",
+  "lesson": "The time machine lands in a garage. In front of you is the Altair 8800, a blue box covered in toggle switches and red LEDs, built around Intel's 8080 microprocessor. In January 1975 it landed on the cover of Popular Electronics as a $439 mail-order kit, and it changed everything: for the first time, an ordinary person could own a computer. Thousands sold in months. Two young programmers named Bill Gates and Paul Allen wrote a BASIC interpreter for it and started a company called Microsoft. The personal-computer era begins right here.\n\nThe 8080 is a real leap in registers. The PDP-8 had one accumulator, but the 8080 has the accumulator A plus six more general registers: B, C, D, E, H, and L. More registers means you can keep more values close to the CPU and shuffle data around without constantly going back to memory. MVI loads a register with an immediate value, MOV copies between registers, and ADD adds a register into the accumulator A.",
+  "prompt": "Put 5 in register A and 7 in register B, then add B into A so A ends up at 12. Finish with HLT.",
+  "starterCode": "        MVI A, 5    ; A = 5\n        MVI B, 7    ; B = 7\n        ADD B       ; A = A + B\n        HLT\n",
+  "hints": [
+    "MVI A, 5 loads the value 5 into register A.",
+    "ADD B adds register B into the accumulator A."
+  ],
+  "success": { "registers": { "A": 12 }, "halted": true },
+  "successText": "Register A must equal 12 (that's 5 plus 7) at the halt.",
+  "reference": "MVI A, 5\nMVI B, 7\nADD B\nHLT\n"
+}

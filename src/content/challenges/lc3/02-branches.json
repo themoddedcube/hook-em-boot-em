@@ -1,0 +1,15 @@
+{
+  "id": "branches",
+  "title": "Condition Codes and Branches",
+  "lesson": "On the Baby you tested the sign of the accumulator, and the PDP-8 used ISZ. The LC-3 makes this general with three condition-code flags: N (negative), Z (zero), and P (positive), which are set automatically every time an instruction writes a register. You then branch on them with BR.\n\nBR comes in flavors: BRn, BRz, BRp, and combinations like BRnz, BRzp, or BRnzp (which always branches). The processor checks the named flags against the last result. This is exactly how modern CPUs do conditional control flow, compare and branch, so the habit you build here carries straight over to real assembly and to understanding how 'if' and 'while' get compiled.\n\nLet's build a countdown loop: add a running counter into a sum each pass, decrement the counter, and branch back while it's still positive.",
+  "prompt": "Work out 5 plus 4 plus 3 plus 2 plus 1, which is 15, with a loop. Keep the sum in R0 and a counter in R1 (start it at 5). Each pass, add R1 to R0, decrement R1, and BRp back while R1 is still positive.",
+  "starterCode": ".ORIG x3000\n        AND R0, R0, #0    ; R0 = 0 (the sum)\n        AND R1, R1, #0\n        ADD R1, R1, #5    ; R1 = 5 (the counter)\nLOOP    ADD R0, R0, R1    ; sum = sum + counter\n        ADD R1, R1, #-1   ; counter = counter - 1 (sets N, Z, P)\n        BRp LOOP          ; loop while the counter is still positive\n        HALT\n.END\n",
+  "hints": [
+    "AND R0, R0, #0 is the standard LC-3 way to clear a register to 0.",
+    "ADD R1, R1, #-1 sets the condition codes based on the new value of R1.",
+    "BRp branches only while the last result was positive, so the loop ends when R1 hits 0."
+  ],
+  "success": { "registers": { "R0": 15 }, "halted": true },
+  "successText": "R0 must equal 15 (that's 5 plus 4 plus 3 plus 2 plus 1) at the halt.",
+  "reference": ".ORIG x3000\nAND R0, R0, #0\nAND R1, R1, #0\nADD R1, R1, #5\nLOOP ADD R0, R0, R1\nADD R1, R1, #-1\nBRp LOOP\nHALT\n.END\n"
+}

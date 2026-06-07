@@ -1,0 +1,15 @@
+{
+  "id": "loop-and-skip",
+  "title": "The First Conditional",
+  "lesson": "So far your programs have run straight down the store and stopped. Real computation needs decisions and repetition. The Baby's control comes from two ideas. First, the CI (the Control Instruction counter, the direct ancestor of the modern program counter) keeps track of which line runs next. JMP sets it, and the machine jumps. Second, CMP (also called Skip-if-Negative) skips the next instruction whenever the accumulator is negative.\n\nThat one conditional is enough to build any loop. The pattern goes like this: do some work, test the accumulator's sign with CMP, and put a JMP back to the top right after it. As long as the value stays positive or zero, CMP does nothing and the JMP fires, so the loop repeats. The moment the value goes negative, CMP skips the JMP and control falls through to STP.\n\nNotice something the Baby makes obvious: instructions and data share the same 32 words. The program literally sits in the picture on the screen, right next to its numbers. The stored-program idea, made visible.",
+  "prompt": "Start with 20 in the accumulator and keep subtracting 3 until the value goes negative, then stop. (20 minus 3 seven times is negative 1, so the accumulator should end at negative 1.)",
+  "starterCode": "; Loop: subtract 3 until A goes negative, then stop.\n        LDN start    ; A = 20\nloop:   SUB three    ; A = A - 3\n        CMP          ; if A < 0, skip the next line\n        JMP loop     ; otherwise, loop again\n        STP\nstart:  NUM -20\nthree:  NUM 3\n",
+  "hints": [
+    "LDN start, where start holds -20, puts 20 in the accumulator.",
+    "CMP skips the NEXT instruction when A is negative. Put JMP loop right after CMP, so the loop ends once A goes negative.",
+    "The values go 20, 17, 14, 11, 8, 5, 2, then -1. The loop runs until A is -1."
+  ],
+  "success": { "registers": { "A": -1 }, "halted": true },
+  "successText": "A must equal -1 (the first negative value it reaches) at the stop.",
+  "reference": "LDN start\nloop: SUB three\nCMP\nJMP loop\nSTP\nstart: NUM -20\nthree: NUM 3\n"
+}

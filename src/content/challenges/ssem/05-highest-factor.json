@@ -1,0 +1,16 @@
+{
+  "id": "highest-factor",
+  "title": "Kilburn's First Program",
+  "lesson": "This is the one that made history. The very first program ever run on the Baby, on 21 June 1948, was written by Tom Kilburn to find the highest proper factor of a number. It tried every candidate from the number downward, checking each one for divisibility, using nothing but repeated subtraction. For 2 to the 18th power (262,144) it ground through about 3.5 million operations in 52 minutes, and it got the right answer: 131,072. That run is the dawn of practical software.\n\nTesting for divisibility is really just testing the remainder. A number is divisible by D exactly when (number mod D) is 0. And on a subtract-only machine, you find a remainder the obvious way: keep subtracting D until subtracting once more would go negative, and the last value you had is the remainder. That little routine is the beating heart of Kilburn's factor program.\n\nYour capstone is that routine. Keep subtracting D from N, remembering the previous value each time. When the subtraction finally goes negative, the value you remembered is the remainder. (Since the Baby can't even copy a word directly, you copy by negating twice: LDN, STO, LDN, the trick you've used all level.)",
+  "prompt": "Work out 20 mod 6 by repeated subtraction, the core of the world's first program. Track the previous value, and when subtracting 6 would go negative, that previous value (2) is the remainder. Leave it in the accumulator and STP.",
+  "starterCode": "; remainder = N mod D, by repeated subtraction.\n; Each pass: prev = rem, then rem = rem - 6. If rem goes negative, the answer is prev.\nloop:   LDN rem      ; A = -rem\n        STO t        ; t = -rem\n        LDN t        ; A = rem\n        STO prev     ; prev = rem\n        LDN rem      ; A = -rem\n        STO t\n        LDN t        ; A = rem\n        SUB six      ; A = rem - 6\n        STO rem      ; rem = rem - 6\n        CMP          ; if rem < 0, skip the JMP\n        JMP loop\n        LDN prev     ; recover prev (the remainder)\n        STO t\n        LDN t\n        STP\nrem:    NUM 20\nsix:    NUM 6\nprev:   NUM 0\nt:      NUM 0\n",
+  "hints": [
+    "A remainder is what's left when you can't subtract D one more time without going negative.",
+    "Save 'prev = rem' at the top of each pass, then subtract. When rem goes negative, prev holds the answer.",
+    "To copy a value on a subtract-only machine: LDN it (negate), STO to a scratch word, then LDN the scratch (negate again).",
+    "The values go 20, 14, 8, 2, then -4 (too far). The last value before going negative, 2, is 20 mod 6."
+  ],
+  "success": { "registers": { "A": 2 }, "halted": true },
+  "successText": "A must equal 2 (that's 20 mod 6), found by repeated subtraction.",
+  "reference": "loop: LDN rem\nSTO t\nLDN t\nSTO prev\nLDN rem\nSTO t\nLDN t\nSUB six\nSTO rem\nCMP\nJMP loop\nLDN prev\nSTO t\nLDN t\nSTP\nrem: NUM 20\nsix: NUM 6\nprev: NUM 0\nt: NUM 0\n"
+}
