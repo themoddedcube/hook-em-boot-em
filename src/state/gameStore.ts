@@ -226,22 +226,20 @@ export const useGameStore = create<GameState>((set, get) => {
     hintsRevealed: 0,
 
     init: () => {
+      // Always start the player on the first chronological level (ENIAC), no
+      // matter what their saved progress says. Completion still persists, so
+      // unlocked eras stay reachable from the timeline; we just want a
+      // predictable, story-correct opening every time the page loads.
       const save = loadSave();
       set({ save });
-      const level =
-        (save.last && getLevel(save.last.levelId)) ?? LEVELS[0];
+      const level = LEVELS[0];
       if (!isAssembly(level)) {
         mountNonAssembly(level);
         return;
       }
       const challenges = loadChallenges(level.challengeDir!);
-      let index = 0;
-      if (save.last) {
-        const i = challenges.findIndex((c) => c.id === save.last!.challengeId);
-        if (i >= 0) index = i;
-      }
       set({ challenges });
-      mountChallenge(level, index);
+      mountChallenge(level, 0);
     },
 
     selectLevel: (levelId) => {
