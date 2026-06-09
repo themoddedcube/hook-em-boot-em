@@ -58,7 +58,9 @@ export function TaccFinale({ year, title }: { year: number; title: string }) {
         <button className="btn btn-primary finale-replay" onClick={() => selectLevel(first.id)}>
           ↺ Travel back to {first.year} · {first.title}
         </button>
-        <p className="finale-foot">Hook 'em. · UT Austin ECE · EE 306 / EE 460N</p>
+        <p className="finale-foot">
+          Made by Chaithu Talasila · Hook 'em. · UT Austin ECE · EE 306 / EE 460N
+        </p>
       </div>
     </main>
   );

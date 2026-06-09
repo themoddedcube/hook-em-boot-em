@@ -59,7 +59,7 @@ export function IntroOverlay({ onStart }: { onStart: () => void }) {
           ▶ Boot the machine
         </button>
         <p className="intro-foot">
-          For UT Austin ECE · EE 306 / EE 460N · Hook 'em 🤘
+          Made by Chaithu Talasila · For UT Austin ECE · EE 306 / EE 460N · Hook 'em 🤘
         </p>
       </div>
     </div>
