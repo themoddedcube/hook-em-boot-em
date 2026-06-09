@@ -1,0 +1,15 @@
+{
+  "id": "hello-world",
+  "title": "Hello, World",
+  "lesson": "Real MIPS programs (on the N64 or anywhere else) talk to the outside world through 'syscall', the same idea as the PDP-8's IOT instruction wrapped up as a service number. We're using the MARS/SPIM convention students learn in architecture courses: put a service code in $v0, an argument in $a0, and call syscall.\n\nThe services we'll use:\n  $v0 = 1  print integer in $a0\n  $v0 = 4  print zero-terminated string at address in $a0\n  $v0 = 10 exit\n\n.asciiz lays a string into memory followed by a zero byte. 'la $a0, msg' points $a0 at the start, syscall 4 prints until it hits the zero. Same pattern as the LC-3's PUTS, just spelled differently.",
+  "prompt": "Print HELLO using syscall 4. Put the string in a .asciiz, load its address into $a0, set $v0 = 4, syscall, then exit with $v0 = 10.",
+  "starterCode": ".data\nmsg:    .asciiz \"HELLO\"\n.text\n        la   $a0, msg\n        li   $v0, 4            # syscall 4 = print string at $a0\n        syscall\n        li   $v0, 10\n        syscall\n",
+  "hints": [
+    "la $a0, msg loads the address of the string into $a0.",
+    "li $v0, 4 then syscall prints the zero-terminated string at $a0.",
+    "Finish with li $v0, 10 and syscall to exit cleanly."
+  ],
+  "success": { "output": { "contains": "HELLO" }, "halted": true },
+  "successText": "The console must print HELLO.",
+  "reference": ".data\nmsg: .asciiz \"HELLO\"\n.text\nla $a0, msg\nli $v0, 4\nsyscall\nli $v0, 10\nsyscall\n"
+}

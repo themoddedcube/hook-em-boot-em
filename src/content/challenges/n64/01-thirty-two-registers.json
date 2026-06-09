@@ -1,0 +1,15 @@
+{
+  "id": "thirty-two-registers",
+  "title": "1996: The Cartridge You Blew Into",
+  "lesson": "Time machine lands in 1996. You're holding a Nintendo 64, the most successful console of its generation, the thing that brought Mario, Zelda, and Goldeneye into millions of living rooms. The chip inside is a MIPS R4300i, and 'MIPS' (Microprocessor without Interlocked Pipeline Stages) is the canonical RISC architecture that took over the world in the 80s and 90s. The same family of chips ran Silicon Graphics workstations, the original PlayStation, and one fleet of TACC's earlier supercomputers.\n\nThe contrast with the Commodore 64 is huge. The 6502 had three registers; MIPS gives you 32, and they're all the same size and shape. There are no special-purpose accumulators. Every instruction names its registers explicitly. Arithmetic happens in registers; memory is touched only through LOAD and STORE. This is the 'load-store architecture' idea, and it's the foundation of every modern CPU you'll use after this.\n\nRegister names use a '$'. $zero is permanently zero. $v0 holds return values. $a0 holds the first argument. $t0–$t9 are temporaries. The pseudo-instruction 'li' (load immediate) puts a constant in a register. To print, you put the value in $a0, set $v0 to 1 (the 'print integer' service code), and run syscall.",
+  "prompt": "Compute 5 + 7 and print 12. Use 'li' to load the operands, 'add' to sum them into $a0, then syscall 1 to print, then syscall 10 to exit.",
+  "starterCode": ".text\n        li   $t0, 5\n        li   $t1, 7\n        add  $a0, $t0, $t1     # $a0 = 12\n        li   $v0, 1            # syscall 1 = print integer\n        syscall\n        li   $v0, 10           # syscall 10 = exit\n        syscall\n",
+  "hints": [
+    "li loads a literal: 'li $t0, 5' puts 5 in $t0.",
+    "add $a0, $t0, $t1 stores $t0 + $t1 into $a0.",
+    "Syscall 1 prints the integer in $a0. Then syscall 10 cleanly halts the program."
+  ],
+  "success": { "output": { "contains": "12" }, "halted": true },
+  "successText": "The console must print 12 (5 + 7) and the program must halt.",
+  "reference": ".text\nli $t0, 5\nli $t1, 7\nadd $a0, $t0, $t1\nli $v0, 1\nsyscall\nli $v0, 10\nsyscall\n"
+}

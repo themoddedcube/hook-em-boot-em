@@ -1,0 +1,10 @@
+{
+  "id": "sandbox",
+  "sandbox": true,
+  "title": "Sandbox, and the View from 30 Tons Away",
+  "lesson": "You started in 1945 with a 30-ton room you programmed by plugging in cables. You're ending in 2007 with a slab of glass you swipe with your thumb. The arc of computer architecture in your hands.\n\nARM is in every iPhone since the first one, in every Android, in every Apple Silicon Mac (M1 / M2 / M3 / M4), in the AirPods in your ears, in the chip controlling your car's brakes, in the AWS Graviton servers running half the internet, and increasingly in the racks at the Texas Advanced Computing Center across campus. Roughly 250 billion ARM chips have shipped. It is, by orders of magnitude, the most-produced computing architecture in human history.\n\nAnd you can read its assembly now. You can read MIPS. You can read LC-3. You can read 6502. You wrote real programs for all of them. That is the skill that lets you walk into EE 460N, or into any architecture conference, or any modern systems job, and feel oriented.\n\nOne stop left: the finish line, right here on the UT Austin campus.",
+  "prompt": "Free play. Print a message, call a subroutine, walk an array, or just see how much ARM assembly you can write from memory. Then go meet TACC.",
+  "starterCode": "// Sandbox: no goal here. The ARM core in your phone is yours.\n// This prints 'HOOK EM' and then counts 1..3 with a subroutine call.\n.data\nmsg:    .asciz \"HOOK EM \"\n.text\n        mov x0, #0x1000\n        mov x16, #4\n        svc #0\n\n        mov x1, #1\nloop:\n        mov x0, x1\n        bl print_int\n        add x1, x1, #1\n        cmp x1, #4\n        b.ne loop\n\n        mov x16, #93\n        svc #0\n\nprint_int:\n        mov x16, #1\n        svc #0\n        ret\n",
+  "hints": [],
+  "success": {}
+}

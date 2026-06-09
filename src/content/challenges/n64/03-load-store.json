@@ -1,0 +1,15 @@
+{
+  "id": "load-store",
+  "title": "Load. Store. Repeat.",
+  "lesson": "This is where MIPS earns its 'load-store machine' title. Arithmetic instructions touch registers only. The two ways to touch memory are 'lw' (load word) and 'sw' (store word), and they take an address as a base register plus an offset: 'lw $t0, 0($t1)' means 'load the word at the address in $t1, plus 0 bytes'.\n\nThis split makes the pipeline predictable, which is what made RISC fast. Every load and store has the same shape; the CPU can schedule them efficiently. The same idea (compute in registers, move data deliberately) shows up in the LC-3's LD and STR, in ARM's LDR and STR, and in every modern processor.\n\nThe '.data' section lets you place constants in memory with labels. 'la' (load address) puts the address of a label into a register, which you then use as the base for lw or sw.",
+  "prompt": "Add the two values stored at labels 'a' (10) and 'b' (20) and print the sum (30). Use 'la' to get the address, 'lw' to load each word, 'add' to sum, syscall 1 to print.",
+  "starterCode": ".data\na:      .word 10\nb:      .word 20\n.text\n        la   $t0, a\n        lw   $t1, 0($t0)       # $t1 = 10\n        la   $t0, b\n        lw   $t2, 0($t0)       # $t2 = 20\n        add  $a0, $t1, $t2     # $a0 = 30\n        li   $v0, 1\n        syscall\n        li   $v0, 10\n        syscall\n",
+  "hints": [
+    "la $t0, a puts the address of 'a' into $t0.",
+    "lw $t1, 0($t0) loads the word at address $t0+0 into $t1.",
+    "Add the two loaded values into $a0 and print with syscall 1."
+  ],
+  "success": { "output": { "contains": "30" }, "halted": true },
+  "successText": "The console must print 30 (= 10 + 20), loaded from memory.",
+  "reference": ".data\na: .word 10\nb: .word 20\n.text\nla $t0, a\nlw $t1, 0($t0)\nla $t0, b\nlw $t2, 0($t0)\nadd $a0, $t1, $t2\nli $v0, 1\nsyscall\nli $v0, 10\nsyscall\n"
+}

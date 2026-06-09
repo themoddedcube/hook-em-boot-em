@@ -1,0 +1,15 @@
+{
+  "id": "load-store",
+  "title": "LDR / STR: Touching Memory the ARM Way",
+  "lesson": "ARM is a load-store machine, just like MIPS and the LC-3. Arithmetic instructions only touch registers; the only way to read or write memory is through LDR (Load Register) and STR (Store Register). The syntax uses square brackets to mean 'the memory at this address': 'ldr x0, [x1]' loads the word x1 points at into x0. You can also add an offset: 'ldr x0, [x1, #4]' loads the word four bytes past x1.\n\nThe '.data' section gives you a place to put constants in memory. On our teaching machine, the .data section starts at address 0x1000, so 'mov x1, #0x1000' points x1 at the very first byte of .data.",
+  "prompt": "Load the value 30 from a .word stored at the start of .data, and print it.",
+  "starterCode": ".data\nx:      .word 30\n.text\n        mov x1, #0x1000      // address of x (first word of .data)\n        ldr x0, [x1]         // x0 = the word at that address (= 30)\n        mov x16, #1\n        svc #0\n        mov x16, #93\n        svc #0\n",
+  "hints": [
+    "mov x1, #0x1000 puts the .data section's base address into x1.",
+    "ldr x0, [x1] reads the 32-bit word at that address into x0.",
+    "Print x0 with x16 = 1 + svc #0."
+  ],
+  "success": { "output": { "contains": "30" }, "halted": true },
+  "successText": "The terminal must print 30, loaded from memory.",
+  "reference": ".data\nx: .word 30\n.text\nmov x1, #0x1000\nldr x0, [x1]\nmov x16, #1\nsvc #0\nmov x16, #93\nsvc #0\n"
+}

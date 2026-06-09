@@ -1,0 +1,17 @@
+{
+  "id": "load-a-value",
+  "title": "1982: A Computer in Every Home",
+  "lesson": "Welcome, Longhorn. You found a humming machine in the basement of the ECE building: a Commodore 64, the best-selling computer of all time. About 17 million people had one of these beige breadbox keyboards on a desk or kitchen table in the 1980s, more than any single computer model in history.\n\nInside the C64 is a chip called the MOS 6510, which is a MOS 6502 with one extra I/O port (we won't use it). The 6502 itself is the famous 8-bit microprocessor that also powered the Apple I, the Apple II, and the Nintendo Entertainment System. It cost $25 when rivals cost $200, which is why it ended up in just about everything.\n\nThe 6502 has three working registers: the accumulator A, plus two index registers X and Y. Almost everything starts by loading a number into one of them. LDA means 'LoaD the Accumulator'. The '#' means 'the literal number itself' (that's called immediate mode), and the '$' means hexadecimal.",
+  "prompt": "Load the hex value $2A (that's 42 in decimal, the answer to everything) into the accumulator A. End your program with BRK so the machine stops.",
+  "starterCode": "; LDA #$xx loads a literal value into A.\n; Change the value below, then press Run.\nLDA #$00\nBRK\n",
+  "hints": [
+    "Immediate mode uses a '#'. For a hex value, write it as #$2A.",
+    "The whole program is just: LDA #$2A then BRK."
+  ],
+  "success": {
+    "registers": { "A": 42 },
+    "halted": true
+  },
+  "successText": "The accumulator A must hold $2A when the program stops.",
+  "reference": "LDA #$2A\nBRK\n"
+}

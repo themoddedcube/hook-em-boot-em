@@ -1,0 +1,10 @@
+{
+  "id": "sandbox",
+  "sandbox": true,
+  "title": "Sandbox, and the Cleanest Teaching ISA",
+  "lesson": "RISC won. By the late 1990s, MIPS, ARM, SPARC, and PowerPC were everywhere from your N64 to your university's Unix workstations. CISC didn't disappear (x86 is still dominant on desktops), but it survived by hiding a RISC core under the hood and translating instructions on the fly.\n\nBut for teaching, even MIPS is more than students need on day one. 32 registers, branch delay slots, coprocessors. So at UT Austin, Yale Patt and Sanjay Patel built the LC-3: a teaching ISA that keeps RISC's good ideas (simple, regular, load-store) and trims everything else, so the whole instruction set fits on a page of the textbook. That's where you're going next.\n\nThe LC-3 isn't a real chip; you can't buy one. But you can read it cover to cover in an afternoon, and once you can, you can read MIPS, ARM, and RISC-V the same way.",
+  "prompt": "Free play. Try printing your own message, write a recursive routine with jal/jr, or build a multiplier out of repeated addition (MIPS doesn't have one in this subset). Then travel onward to the teaching ISA itself.",
+  "starterCode": "# Sandbox: no goal here. The N64's MIPS chip is yours.\n# This prints \"HOOK EM\" followed by a counter from 1 to 5.\n.data\nmsg:    .asciiz \"HOOK EM \"\n.text\n        la   $a0, msg\n        li   $v0, 4\n        syscall\n\n        li   $t0, 1\n        li   $t1, 5\nloop:\n        move $a0, $t0\n        li   $v0, 1\n        syscall\n        addi $t0, $t0, 1\n        addi $t1, $t1, -1\n        bne  $t1, $zero, loop\n\n        li   $v0, 10\n        syscall\n",
+  "hints": [],
+  "success": {}
+}

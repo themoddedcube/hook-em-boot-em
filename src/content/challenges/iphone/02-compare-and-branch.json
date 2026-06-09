@@ -1,0 +1,15 @@
+{
+  "id": "compare-and-branch",
+  "title": "CMP, Condition Codes, and B.NE",
+  "lesson": "MIPS branches read registers directly (bne $a, $b, label). ARM splits the comparison and the branch into two steps. 'cmp x1, x2' subtracts x2 from x1 and sets four condition flags (N, Z, C, V), without actually storing the result anywhere. A subsequent 'b.ne label' (branch if not equal) reads the Z flag and jumps if it's clear.\n\nThis is the family of flags you'll meet again on every CISC and most RISCs (x86 has EFLAGS, the 6502 had its own status register, the LC-3 has N/Z/P, the PDP-8 had Link). The pattern is the same everywhere: a compare or arithmetic op sets the flags, then a conditional branch reads them.\n\nThe countdown loop on ARM looks almost identical to MIPS: load a counter, do work, decrement, compare to zero, branch back while not equal.",
+  "prompt": "Compute 5 + 4 + 3 + 2 + 1 (= 15) with a counted loop. Counter in x1, running sum in x2. Each pass: add the counter to the sum, subtract 1 from the counter, cmp with 0, b.ne back. Then print the sum.",
+  "starterCode": ".text\n        mov x1, #5           // counter\n        mov x2, #0           // sum\nloop:\n        add x2, x2, x1\n        sub x1, x1, #1\n        cmp x1, #0\n        b.ne loop\n        mov x0, x2           // copy sum to x0 for printing\n        mov x16, #1\n        svc #0\n        mov x16, #93\n        svc #0\n",
+  "hints": [
+    "cmp x1, #0 sets the Z flag if x1 is zero.",
+    "b.ne loop branches as long as Z is clear, so the loop ends when x1 reaches 0.",
+    "After the loop, move the sum into x0 and print with x16 = 1 + svc #0."
+  ],
+  "success": { "output": { "contains": "15" }, "halted": true },
+  "successText": "The terminal must print 15 (= 5 + 4 + 3 + 2 + 1).",
+  "reference": ".text\nmov x1, #5\nmov x2, #0\nloop:\nadd x2, x2, x1\nsub x1, x1, #1\ncmp x1, #0\nb.ne loop\nmov x0, x2\nmov x16, #1\nsvc #0\nmov x16, #93\nsvc #0\n"
+}

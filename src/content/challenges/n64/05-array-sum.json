@@ -1,0 +1,15 @@
+{
+  "id": "array-sum",
+  "title": "Walking an Array",
+  "lesson": "This is the program that ties RISC together. To process a list, you keep a pointer in a register and walk it forward, four bytes at a time (since each word is 32 bits = 4 bytes). 'lw' reads through the pointer, you add the element to a running sum, 'addi' bumps the pointer, and 'bne' loops while the counter is non-zero.\n\nThis is the exact shape of every for-loop over an array in every C program you'll ever read. Compilers turn `for (int i = 0; i < n; i++) sum += a[i];` into almost exactly this MIPS code. When you meet the same idea in LC-3 (LDR) and ARM (LDR), you'll see it's the same routine wearing different clothes.",
+  "prompt": "Sum the five numbers in the array (10, 20, 3, 7, 5 → 45) using a pointer + lw + bne loop. Print the result with syscall 1.",
+  "starterCode": ".data\narr:    .word 10, 20, 3, 7, 5\n.text\n        la   $t0, arr          # pointer to first element\n        li   $t1, 5            # count\n        li   $t2, 0            # sum\nloop:\n        lw   $t3, 0($t0)       # load element\n        add  $t2, $t2, $t3     # sum += element\n        addi $t0, $t0, 4       # advance pointer by 4 bytes (one word)\n        addi $t1, $t1, -1\n        bne  $t1, $zero, loop\n        move $a0, $t2\n        li   $v0, 1\n        syscall\n        li   $v0, 10\n        syscall\n",
+  "hints": [
+    "la $t0, arr puts the address of the first element into $t0.",
+    "lw $t3, 0($t0) loads the element the pointer is on; addi $t0, $t0, 4 advances to the next.",
+    "Loop with bne $t1, $zero, loop using $t1 as the count. After the loop, print the sum (45)."
+  ],
+  "success": { "output": { "contains": "45" }, "halted": true },
+  "successText": "The console must print 45 (the sum of the array).",
+  "reference": ".data\narr: .word 10, 20, 3, 7, 5\n.text\nla $t0, arr\nli $t1, 5\nli $t2, 0\nloop:\nlw $t3, 0($t0)\nadd $t2, $t2, $t3\naddi $t0, $t0, 4\naddi $t1, $t1, -1\nbne $t1, $zero, loop\nmove $a0, $t2\nli $v0, 1\nsyscall\nli $v0, 10\nsyscall\n"
+}

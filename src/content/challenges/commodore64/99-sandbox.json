@@ -1,0 +1,10 @@
+{
+  "id": "sandbox",
+  "sandbox": true,
+  "title": "Sandbox, and the RISC Revolution",
+  "lesson": "From a wall of racks weighing a tonne to a sliver of silicon smaller than your fingernail, for $25. The microprocessor collapsed an entire computer onto one chip, and Commodore put that chip in front of 17 million people. Computing was personal now.\n\nBut as more and more programs ran on chips like the 6502, architects started noticing something. The complex multi-step instructions everyone was adding (CISC: Complex Instruction Set Computing) were rarely used by compilers, and they slowed the simple instructions down. In the early 1980s, two academic groups (Patterson at Berkeley and Hennessy at Stanford) pushed back with a radical idea: strip the ISA down to a small set of simple instructions, give it lots of registers, and let the compiler do the clever stuff. This was the RISC revolution (Reduced Instruction Set Computing).\n\nRISC won. By the mid-1990s, RISC chips were everywhere from Unix workstations to game consoles. Next stop: 1996, and one of the most successful RISC chips in history. You've held one in your hands.",
+  "prompt": "Paint whatever you like on the C64's 32 by 32 screen, or write your own routine and watch the registers change. No goal here, this is your canvas. Then travel onward.",
+  "starterCode": "; Sandbox: no goal here. Make the screen your own!\n; This paints a striped gradient across the top of the screen,\n; colouring each pixel by its position.\n        LDX #$00\nloop:   TXA          ; A = X\n        AND #$0F     ; keep the low nibble, a colour 0..15\n        STA $0200,X  ; paint pixel X\n        INX\n        BNE loop     ; fill the first 256 pixels\n        BRK\n",
+  "hints": [],
+  "success": {}
+}

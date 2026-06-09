@@ -492,3 +492,87 @@ Three small UX fixes:
   single invisible hit-sphere over the knob using stable `onPointerOver`/`Out`.
 Verified ENIAC (figure dwarfed), PDP-8 (figure ~console height) and 6502 (figure
 towers over the board) frame well; LC-3 keeps its terminal and no figure. 95/95.
+
+---
+
+## 2026-06-09 — Patt-grade fame pass: Commodore 64, Nintendo 64, iPhone
+
+Major arc rework before emailing Yale Patt and other UT ECE professors. Three
+problems a Patt-grade reviewer would spot in the prior arc:
+1. "MOS 6502" framed a chip as a computer.
+2. A 27-year gap between 1976 and 2003 skipped the RISC revolution and the
+   entire 80s/90s desktop era.
+3. Nothing real, famous, or recognizable to current undergrads between LC-3
+   (which is imaginary by design) and TACC.
+
+User insisted on a **fame-first** arc: every post-1980 level had to be a
+machine UT students would instantly recognize.
+
+### Final arc (9 eras, in strict chronological order)
+1945 ENIAC → 1948 Manchester Baby → 1965 PDP-8 → 1974 Altair 8800 →
+**1982 Commodore 64** (renamed from "MOS 6502") → **1996 Nintendo 64** (new) →
+2000 LC-3 (year corrected from 2003) → **2007 iPhone** (new) → today TACC.
+
+### Renamed: MOS 6502 → Commodore 64 (1982)
+- `git mv src/content/challenges/6502 → commodore64` (5 challenges + sandbox).
+- Level entry: id, title, year, challengeDir all updated; specs rewritten as
+  C64 facts (17 million sold, 64 KB RAM, 1 MHz 6510, $595 launch).
+  `machineFactory` stays `createMos6502` — the C64's 6510 is functionally a
+  6502 with an extra I/O port, defensibly the same teaching ISA.
+- New Blender model: beige breadbox keyboard with the rainbow-stripe accent,
+  function-key column, and an inset CRT for the live 32×32 pixel display.
+
+### NEW: Nintendo 64 (1996, MIPS R4300i)
+`src/machines/mips/` — a clean teaching subset of MIPS in the spirit of SPIM
+and MARS:
+- `cpu.ts`: 32 GP regs ($0 hardwired), R/I/J types (add, sub, and/or/xor, slt,
+  sll, srl, addi/andi/ori/slti, lui, lw/sw, beq/bne, j/jal, jr), syscall on
+  $v0 (1=print int, 4=print string, 10=exit).
+- `assembler.ts`: two-pass; `.text` / `.data` sections; labels; `.word`,
+  `.asciiz`; `li`/`la`/`move` pseudo-ops; `offset($reg)` memory addressing.
+- `mips.test.ts`: 6 unit tests, all pass.
+- N64 Blender model: charcoal console with the iconic giant cartridge sticking
+  up, four colored controller ports, red power button. Bundled with a small
+  CRT behind the console so the syscall terminal renders on a real TV.
+- 5 challenges + sandbox covering registers → branches → load-store →
+  hello-world → array-sum capstone (same shape as LC-3's, deliberately).
+
+### NEW: iPhone (2007, ARM64 teaching subset)
+`src/machines/arm/` — small ARM64-flavored teaching CPU:
+- `cpu.ts`: 64-bit registers via BigInt64Array, x0-x9 + sp/lr/pc named, NZCV
+  flags. MOV / ADD / SUB / AND / ORR / EOR (reg or 8-bit immediate),
+  LDR / STR with `[base, #offset]`, CMP, B + B.EQ/NE/LT/GT/LE/GE, BL/RET,
+  SVC #0 with Darwin-style x16=svc-num convention (1=print int, 4=print
+  string, 93=exit).
+- `assembler.ts`: real ARM64 syntax (`mov x0, #5`, `cmp x1, x2`, `b.ne loop`,
+  `[x1, #4]`). Emits a private 32-bit teaching bytecode rather than real ARM
+  machine code — the syntax is what matters for recognition; the wire format
+  is internal.
+- `arm.test.ts`: 6 unit tests, all pass on first run.
+- iPhone Blender model: glass-and-titanium slab with camera plateau, side
+  buttons, Dynamic Island. The `screen` mesh is the phone's front face, so
+  the live syscall terminal renders right where the iPhone's display is.
+  That's the perfect visual metaphor.
+- 5 challenges + sandbox: modern-registers → CMP+B.NE → LDR/STR → hello-world
+  → array-sum. Same capstone shape as MIPS and LC-3, deliberately, so the
+  player feels the pattern travel across architectures.
+
+### Bridge prose pass
+- Altair sandbox now bridges to the Commodore 64 (was vaguely "the 6502 chip").
+- Commodore 64 sandbox now bridges to the Nintendo 64 (RISC revolution).
+- New N64 sandbox bridges to LC-3 (teaching distillation of RISC).
+- LC-3 lesson 01 calls back to MIPS's 32-register file ("LC-3 trims to 8 so
+  the whole ISA fits on one page").
+- LC-3 lesson 05 calls back to MIPS's array-sum loop ("you've written this
+  exact shape once already; you'll write it again on ARM").
+- LC-3 sandbox now bridges to the iPhone (real modern ARM hardware).
+- iPhone sandbox bridges to TACC.
+
+### Results
+- `npm test`: **129/129 passing** (up from 95). 12 new CPU unit tests + 22
+  new auto-verified reference solutions through the generic engine, on top
+  of the 95 we had before. `tsc -b` clean.
+- The §7.1 seam held twice more: MIPS and ARM each dropped in as just a new
+  `machines/<id>/` folder + challenge JSON + Blender GLB + one `levels.ts`
+  entry. No engine, UI, or shell edits required.
+- LC-3 year corrected 2003 → 2000 (Patt & Patel 1st ed).

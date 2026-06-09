@@ -1,0 +1,15 @@
+{
+  "id": "modern-registers",
+  "title": "2007: The Computer in Your Pocket",
+  "lesson": "The time machine arrives in 2007. Steve Jobs holds up a slab of glass and aluminum at the Macworld keynote and the world's idea of a computer changes overnight. The original iPhone runs an ARM chip from Samsung. Every iPhone since (and every Android phone, and almost every laptop shipped in 2026, including Apple Silicon Macs) also runs ARM. Right now, the device you're reading this on almost certainly has an ARM CPU in it.\n\nARM is a load-store RISC, like the MIPS you just programmed on the N64. Registers are named x0, x1, x2, ..., x30 (with lr aliased to x30 and sp at x31). They're 64 bits wide on modern AArch64. Immediate operands take a '#': 'mov x0, #5' moves the literal 5 into x0.\n\nDarwin (the OS underneath iOS) uses a syscall convention where x16 selects the service and x0 carries the argument, then you call 'svc #0' (supervisor call). We use a small set: x16 = 1 prints an integer, x16 = 4 prints a string, x16 = 93 exits.",
+  "prompt": "Compute 5 + 7 and print 12. Use 'mov' to load the operands, 'add' to sum into x0, then svc to print and exit.",
+  "starterCode": ".text\n        mov x0, #5\n        mov x1, #7\n        add x0, x0, x1       // x0 = 12\n        mov x16, #1          // svc 1 = print int (in x0)\n        svc #0\n        mov x16, #93         // svc 93 = exit\n        svc #0\n",
+  "hints": [
+    "mov x0, #5 loads the literal 5 into x0.",
+    "add x0, x0, x1 stores x0 + x1 into x0.",
+    "Set x16 to 1, call svc to print x0, then set x16 to 93 and svc to exit cleanly."
+  ],
+  "success": { "output": { "contains": "12" }, "halted": true },
+  "successText": "The terminal must print 12 (5 + 7).",
+  "reference": ".text\nmov x0, #5\nmov x1, #7\nadd x0, x0, x1\nmov x16, #1\nsvc #0\nmov x16, #93\nsvc #0\n"
+}

@@ -23,14 +23,20 @@ fastest machines on Earth are humming away a short walk across the Forty Acres.
 
 ## The journey
 
+Nine eras, in strict chronological order. Each one is a **famous, recognizable
+computer** (or, for ENIAC, a famous experience), and each one teaches the
+single architectural concept that motivated the next era.
+
 | Year | Machine | What it teaches |
 |---|---|---|
 | 1945 | **ENIAC** | "Software was wiring." A patch-cable plugboard puzzle: sources feed accumulators that feed the output. Drag a cable or click to wire it up. |
 | 1948 | **Manchester Baby (SSEM)** | The first stored-program computer. Seven instructions, 32 words, no ADD (you subtract and negate your way to everything). |
-| 1965 | **DEC PDP-8** | The first minicomputer ordinary labs could afford. Real addition, ISZ loops, JMS subroutines, a clattering Teletype. |
+| 1965 | **DEC PDP-8** | The minicomputer that escaped the air-conditioned room. Real addition, ISZ loops, JMS subroutines, a clattering Teletype. |
 | 1974 | **Altair 8800** (Intel 8080) | The $439 mail-order kit that launched the personal computer. Seven registers, a real stack with CALL/RET, blinking LEDs. |
-| 1976 | **MOS 6502** | The cheap chip that put computers in homes. Apple I, C64, NES. Registers, addressing modes, and a 32 by 32 screen to draw on. |
-| 2003 | **LC-3** | UT Austin's teaching ISA (Patt & Patel, EE 306). Eight registers, condition codes, TRAP services. The bridge to modern coursework. |
+| 1982 | **Commodore 64** (MOS 6502) | The best-selling computer of all time. 17 million sold. Programmable through its MOS 6510 (a 6502 variant) with a 32 by 32 screen to draw on. |
+| 1996 | **Nintendo 64** (MIPS R4300i) | The console you blew into. The MIPS architecture inside is the canonical RISC: 32 registers, load-store, syscalls. The chip family that ran a generation of Unix workstations. |
+| 2000 | **LC-3** | UT Austin's teaching ISA (Patt & Patel, EE 306). Eight registers, condition codes, TRAP services. The bridge to modern coursework. |
+| 2007 | **iPhone** (ARM64) | The slab of glass that changed how the world thinks about computers. ARM, the most-shipped CPU architecture in history. Roughly 250 billion units. |
 | Today | **TACC** | A celebratory finale. ENIAC vs Frontera, side by side, with a recap of every leap you actually programmed. |
 
 Each assembly era ships its own historically faithful (but pedagogically
@@ -77,7 +83,7 @@ npm run typecheck    # tsc -b --noEmit
 
 ---
 
-## The architecture: one Machine interface, seven (and counting) machines
+## The architecture: one Machine interface, seven assembly cores
 
 The whole project hangs off a single TypeScript interface in
 [`src/engine/machineInterface.ts`](src/engine/machineInterface.ts):
@@ -96,9 +102,21 @@ interface Machine {
 }
 ```
 
-Every assembly era (`mos6502`, `ssem`, `pdp8`, `altair8800`, `lc3`) implements
-this and **the engine, UI, challenge runner, and progression know nothing about
-which machine they are driving**. The register inspector renders itself from the
+Every assembly era implements this interface, with seven cores covering the
+full arc:
+
+| ISA | Machines using it | Implementation |
+|---|---|---|
+| MOS 6502 | Commodore 64 (1982) | `src/machines/mos6502/` |
+| SSEM | Manchester Baby (1948) | `src/machines/ssem/` |
+| PDP-8 | DEC PDP-8 (1965) | `src/machines/pdp8/` |
+| Intel 8080 | Altair 8800 (1974) | `src/machines/altair8800/` |
+| MIPS | Nintendo 64 (1996) | `src/machines/mips/` |
+| LC-3 | LC-3 (2000) | `src/machines/lc3/` |
+| ARM64 | iPhone (2007) | `src/machines/arm/` |
+
+**The engine, UI, challenge runner, and progression know nothing about which
+machine they are driving.** The register inspector renders itself from the
 descriptor. The challenge success-checks are written against the generic
 `MachineState` shape (registers, flags, memory), never against any machine's
 internals.
@@ -131,11 +149,17 @@ player feels the next leap before reading about it.
 - **Baby** has no I/O, no add, and weighs a tonne. So 1965 needs a minicomputer.
 - **PDP-8** is real but still $18,500 and fridge-sized. So 1974 needs the
   microprocessor and the personal kit.
-- **Altair** is personal but a $439 kit with switches. So 1976 needs the
-  cheap, easy-to-use chip.
-- **6502** is the chip that did it, but assembly is unforgiving and every chip
-  speaks a different dialect. So we end on the LC-3, a clean teaching ISA, then
-  the supercomputer on UT's own campus.
+- **Altair** is personal but a $439 kit with switches. So 1982 needs the
+  Commodore 64: cheap, easy, and on 17 million desks.
+- **Commodore 64** flooded the world with 8-bit computers, but the CISC
+  approach was hitting limits. So the mid-80s brought the RISC revolution and
+  by 1996 the Nintendo 64's MIPS chip put it in millions of living rooms.
+- **MIPS** and its cousins were everywhere but each chip was its own dialect.
+  So 2000 brought a teaching ISA, the LC-3, designed to distill RISC into
+  something a student can read in an afternoon.
+- **LC-3** is imaginary, on purpose. So the arc closes on a real, modern,
+  in-shipping computer: the **iPhone**, with the ARM architecture that's now
+  in every phone, every Apple Silicon Mac, and an increasing share of TACC.
 
 Each level ends with a free-play **sandbox** (the ∞ button) whose lesson is the
 bridge to the next era. A spec card overlay shows the machine's real size,
@@ -148,7 +172,7 @@ weight, memory, speed, and price, so the room-to-fingernail scale lands.
 ```
 src/
   machines/                Each folder implements the Machine interface.
-    mos6502/  ssem/  pdp8/  altair8800/  lc3/  _template/
+    mos6502/  ssem/  pdp8/  altair8800/  mips/  lc3/  arm/  _template/
   engine/
     machineInterface.ts    The seam. Everything talks through this.
     challengeRunner.ts     Generic assemble + run + success-check.

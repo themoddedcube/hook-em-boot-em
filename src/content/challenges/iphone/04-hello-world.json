@@ -1,0 +1,15 @@
+{
+  "id": "hello-world",
+  "title": "Hello from the Phone",
+  "lesson": "On iOS (and macOS, which shares its Darwin core), system services are reached through 'svc #0' with the call number in x16. We're using a small set: x16 = 1 prints an integer in x0, x16 = 4 prints a zero-terminated string at the address in x0, and x16 = 93 exits.\n\n.asciz lays a string into memory followed by a zero byte. 'mov x0, #0x1000' points x0 at the start of .data (where our string lives). Set x16 to 4, svc #0, and the kernel-stub prints the string. Same pattern as the LC-3's PUTS and MIPS's syscall 4, in different syntax. Pattern recognition is the whole point.",
+  "prompt": "Print HELLO using svc #0. Put the string in .asciz at the start of .data, point x0 at it, set x16 = 4, svc, then exit.",
+  "starterCode": ".data\nmsg:    .asciz \"HELLO\"\n.text\n        mov x0, #0x1000      // address of msg\n        mov x16, #4          // svc 4 = print zero-terminated string at x0\n        svc #0\n        mov x16, #93\n        svc #0\n",
+  "hints": [
+    "mov x0, #0x1000 puts the address of msg into x0.",
+    "mov x16, #4 then svc #0 prints the string until it hits the zero byte.",
+    "Finish with mov x16, #93 + svc #0 to exit."
+  ],
+  "success": { "output": { "contains": "HELLO" }, "halted": true },
+  "successText": "The terminal must print HELLO.",
+  "reference": ".data\nmsg: .asciz \"HELLO\"\n.text\nmov x0, #0x1000\nmov x16, #4\nsvc #0\nmov x16, #93\nsvc #0\n"
+}

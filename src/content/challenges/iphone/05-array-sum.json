@@ -1,0 +1,15 @@
+{
+  "id": "array-sum",
+  "title": "Walking an Array, Again",
+  "lesson": "And now the punchline. You wrote this exact program on MIPS at the Nintendo 64 level, and again on the LC-3 with LDR. Here it is one more time, in ARM, the architecture in your pocket right now. A pointer, a counter, a running sum. Load through the pointer, add to the sum, advance the pointer by one word (4 bytes), decrement the counter, branch back while it's not zero.\n\nThis isn't a coincidence. It's why universities teach load-store architectures: once you can read a for-loop in one of them, you can read it in all of them. The compiler that turned the C in your iOS app into ARM machine code generated a loop almost exactly like this one.",
+  "prompt": "Sum the five-word array (10, 20, 3, 7, 5 → 45) using a pointer (x1), counter (x2), and running sum (x3). Print the result.",
+  "starterCode": ".data\narr:    .word 10, 20, 3, 7, 5\n.text\n        mov x1, #0x1000      // pointer to first element\n        mov x2, #5           // count\n        mov x3, #0           // sum\nloop:\n        ldr x4, [x1]         // load current element\n        add x3, x3, x4       // sum += element\n        add x1, x1, #4       // advance pointer by 4 bytes (one word)\n        sub x2, x2, #1\n        cmp x2, #0\n        b.ne loop\n        mov x0, x3           // copy sum to x0 for printing\n        mov x16, #1\n        svc #0\n        mov x16, #93\n        svc #0\n",
+  "hints": [
+    "mov x1, #0x1000 points x1 at the first array element.",
+    "ldr x4, [x1] loads the element x1 points at. add x1, x1, #4 advances to the next.",
+    "Use x2 as a count, sub it by 1 each pass, cmp with 0, b.ne back. After the loop, print the sum (45)."
+  ],
+  "success": { "output": { "contains": "45" }, "halted": true },
+  "successText": "The terminal must print 45 (the sum of the array).",
+  "reference": ".data\narr: .word 10, 20, 3, 7, 5\n.text\nmov x1, #0x1000\nmov x2, #5\nmov x3, #0\nloop:\nldr x4, [x1]\nadd x3, x3, x4\nadd x1, x1, #4\nsub x2, x2, #1\ncmp x2, #0\nb.ne loop\nmov x0, x3\nmov x16, #1\nsvc #0\nmov x16, #93\nsvc #0\n"
+}

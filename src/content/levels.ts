@@ -10,7 +10,9 @@ import { createSsem } from "../machines/ssem";
 import { createPdp8 } from "../machines/pdp8";
 import { createAltair8800 } from "../machines/altair8800";
 import { createMos6502 } from "../machines/mos6502";
+import { createMips } from "../machines/mips";
 import { createLc3 } from "../machines/lc3";
+import { createArm } from "../machines/arm";
 
 export const LEVELS: Level[] = [
   {
@@ -100,30 +102,53 @@ export const LEVELS: Level[] = [
     },
   },
   {
-    id: "mos6502",
-    title: "MOS 6502",
-    year: 1976,
+    id: "commodore64",
+    title: "Commodore 64",
+    year: 1982,
     machineFactory: createMos6502,
-    challengeDir: "6502",
-    modelPath: "/assets/models/6502.glb",
+    challengeDir: "commodore64",
+    modelPath: "/assets/models/commodore64.glb",
     blurb:
-      "The cheap little chip that put computers in people's homes. It ran the " +
-      "Apple I, the Commodore 64, and the NES. You get registers, addressing " +
-      "modes, and a 32 by 32 screen to draw on.",
+      "The best-selling computer of all time, the beige breadbox that put a " +
+      "real machine in millions of bedrooms. Inside is the MOS 6510, a 6502 " +
+      "with an extra I/O port. You program the chip everyone's favourite home " +
+      "computer ran on.",
     specs: {
-      size: "a 5.6 mm silicon chip in a 40-pin package (about 5 cm)",
-      sizeCompare: "smaller than a fingernail",
-      weight: "a few grams",
-      memory: "can address 64 KB",
-      speed: "1 to 2 MHz, over 500,000 instructions a second",
-      price: "$25 in 1975 (about $140 today)",
-      note: "Rival chips cost around $200, so its low price is what made home computers possible.",
+      size: "about 40 cm by 22 cm by 7 cm",
+      sizeCompare: "a chunky beige keyboard you set on your desk",
+      weight: "around 1.8 kg (4 lb)",
+      memory: "64 KB of RAM (hence the '64')",
+      speed: "a 1.023 MHz MOS 6510 (about 500,000 instructions a second)",
+      price: "$595 at launch in 1982 (about $1,900 today)",
+      note: "Around 17 million sold, more than any other single computer model in history.",
+    },
+  },
+  {
+    id: "n64",
+    title: "Nintendo 64",
+    year: 1996,
+    machineFactory: createMips,
+    challengeDir: "n64",
+    modelPath: "/assets/models/n64.glb",
+    blurb:
+      "The console that brought Mario, Zelda, and Goldeneye into millions of " +
+      "living rooms. Inside is a MIPS R4300i, the same family of RISC chip " +
+      "that ran Unix workstations and the original PlayStation. You program " +
+      "the architecture that defined modern computing.",
+    specs: {
+      size: "about 26 cm by 19 cm by 7 cm",
+      sizeCompare: "fits in two hands",
+      weight: "around 1.1 kg (2.4 lb)",
+      memory: "4 MB of RDRAM (expandable to 8 MB)",
+      speed: "a 93.75 MHz MIPS R4300i (a 64-bit RISC chip)",
+      price: "$199 at launch in 1996 (about $400 today)",
+      note: "Over 32 million sold. The R4300i was the most famous mass-market MIPS chip ever shipped.",
     },
   },
   {
     id: "lc3",
     title: "LC-3",
-    year: 2003,
+    year: 2000,
     machineFactory: createLc3,
     challengeDir: "lc3",
     modelPath: "/assets/models/lc3.glb",
@@ -139,6 +164,28 @@ export const LEVELS: Level[] = [
       speed: "as fast as whatever runs the simulator",
       price: "free, it lives in a textbook",
       note: "Designed by Yale Patt and Sanjay Patel, the ISA you study in UT Austin's EE 306.",
+    },
+  },
+  {
+    id: "iphone",
+    title: "iPhone",
+    year: 2007,
+    machineFactory: createArm,
+    challengeDir: "iphone",
+    modelPath: "/assets/models/iphone.glb",
+    blurb:
+      "The slab of glass that changed how people think about computers. Inside " +
+      "is an ARM chip, the same family that runs every iPhone since, every " +
+      "Android, every Apple Silicon Mac, and an increasing share of the racks " +
+      "at TACC. The most-shipped CPU architecture in history.",
+    specs: {
+      size: "about 14.6 cm by 7.1 cm by 0.8 cm (modern iPhone)",
+      sizeCompare: "it fits in your pocket",
+      weight: "around 170 g (6 oz)",
+      memory: "8 GB of RAM in a current iPhone",
+      speed: "modern A-series Apple chips run at several GHz on multiple cores",
+      price: "$799+ in 2026 (the 2007 original was $499)",
+      note: "Roughly 250 billion ARM chips have shipped, more than any other architecture in history.",
     },
   },
   {

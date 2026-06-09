@@ -1,0 +1,15 @@
+{
+  "id": "branches",
+  "title": "Branches: The RISC Way",
+  "lesson": "On the 6502 you compared with CPX and branched on a flag. The PDP-8 used ISZ. RISC simplifies the whole picture. MIPS has no condition codes. Branches read the registers directly: 'bne $a, $b, label' jumps to label if $a does not equal $b. That's it. Every branch in MIPS is a register-vs-register comparison plus a target.\n\nThis is the canonical countdown idiom: load a counter, do work, addi the counter by -1, and bne back to the top while the counter is not zero. You'll see exactly this loop in every RISC architecture you ever touch, including the LC-3 you'll meet next and the ARM chip in your phone.",
+  "prompt": "Sum 5 + 4 + 3 + 2 + 1 (= 15) with a counted loop. Use $t0 as the counter (starting at 5), $t1 as the running sum. Each pass: add $t1 += $t0, addi $t0 -= 1, bne back while $t0 != $zero. Print the result with syscall 1.",
+  "starterCode": ".text\n        li   $t0, 5            # counter\n        li   $t1, 0            # sum\nloop:\n        add  $t1, $t1, $t0\n        addi $t0, $t0, -1\n        bne  $t0, $zero, loop\n        move $a0, $t1          # print the sum\n        li   $v0, 1\n        syscall\n        li   $v0, 10\n        syscall\n",
+  "hints": [
+    "addi $t0, $t0, -1 subtracts one from $t0.",
+    "bne $t0, $zero, loop branches back as long as $t0 is non-zero.",
+    "After the loop, copy $t1 into $a0 and print with syscall 1."
+  ],
+  "success": { "output": { "contains": "15" }, "halted": true },
+  "successText": "The console must print 15 (5 + 4 + 3 + 2 + 1).",
+  "reference": ".text\nli $t0, 5\nli $t1, 0\nloop:\nadd $t1, $t1, $t0\naddi $t0, $t0, -1\nbne $t0, $zero, loop\nmove $a0, $t1\nli $v0, 1\nsyscall\nli $v0, 10\nsyscall\n"
+}
