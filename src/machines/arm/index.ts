@@ -28,8 +28,10 @@ const DESCRIPTOR: MachineDescriptor = {
   id: "arm",
   name: "ARM64",
   registerOrder: ["x0", "x1", "x2", "x3", "x4", "lr", "sp", "pc"],
+  // Registers are 64-bit internally, but the inspector shows the low 32 bits
+  // (the same view ARM itself calls w0..w4) so the hex fits the register card.
   registerBits: {
-    x0: 64, x1: 64, x2: 64, x3: 64, x4: 64, lr: 64, sp: 64, pc: 64,
+    x0: 32, x1: 32, x2: 32, x3: 32, x4: 32, lr: 32, sp: 32, pc: 32,
   },
   flagOrder: ["N", "Z", "C", "V"],
   defaultOrigin: TEXT_BASE,
