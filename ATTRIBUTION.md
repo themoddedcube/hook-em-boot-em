@@ -44,12 +44,12 @@ content retains the licenses below.
 
 | Asset | Source / tool | License | Notes |
 |---|---|---|---|
-| `assets/models/eniac.glb` | Blender (parametric) | project asset | ENIAC-style U of vacuum-tube cabinets with glowing valves, authored parametrically per PRD §4. |
-| `assets/models/ssem.glb` | Blender (parametric) | project asset | 1948-style equipment cabinet with forward-facing CRT, authored parametrically per PRD §4. |
-| `assets/models/pdp8.glb` | Blender (parametric) | project asset | PDP-8/I-style minicomputer console (lamp panel + toggle switches), authored parametrically per PRD §4. |
-| `assets/models/altair8800.glb` | Blender (parametric) | project asset | Altair 8800-style blue case with front-panel LEDs + toggle switches, authored parametrically per PRD §4. |
-| `assets/models/commodore64.glb` | Blender (parametric) | project asset | Commodore 64 breadbox: beige keyboard chassis with the rainbow stripe and an inset CRT for the pixel display, authored parametrically per PRD §4. |
-| `assets/models/n64.glb` | Blender (parametric) | project asset | Nintendo 64-style console with cartridge slot, four controller ports, red power button, and an inset CRT for syscall output, authored parametrically per PRD §4. |
+| `assets/models/eniac.glb` | Blender (parametric) | project asset | ENIAC-style U of tall black panel cabinets with dial banks and neon lamps, authored parametrically per PRD §4. |
+| `assets/models/ssem.glb` | Blender (parametric) | project asset | Manchester Baby-style open racks of glowing valves with a Williams-tube monitor and an operator's control bench, authored parametrically per PRD §4. |
+| `assets/models/pdp8.glb` | Blender (parametric) | project asset | Floor-standing DEC console: cream cabinet, charcoal face, maroon trim, lamp readout, and orange/yellow rocker switches, authored parametrically per PRD §4. |
+| `assets/models/altair8800.glb` | Blender (parametric) | project asset | Altair 8800-style steel case with MITS-blue front panel, red LED rows, and bat-handle toggles, authored parametrically per PRD §4. |
+| `assets/models/commodore64.glb` | Blender (parametric) | project asset | Commodore 64 breadbox: beige keyboard chassis with the rainbow stripe and a CRT monitor raised on a stand behind it, authored parametrically per PRD §4. |
+| `assets/models/n64.glb` | Blender (parametric) | project asset | Nintendo 64-style console (cartridge in slot, four controller ports, power switch, four-colour badge) in front of a 90s CRT TV that shows the syscall output, authored parametrically per PRD §4. |
 | `assets/models/lc3.glb` | Blender (parametric) | project asset | Modern workstation (monitor + keyboard) standing in for the abstract LC-3, authored parametrically per PRD §4. |
 | `assets/models/iphone.glb` | Blender (parametric) | project asset | Modern bezel-less smartphone (glass front + titanium frame + camera plateau). The screen mesh is the front face, so the live syscall terminal renders right on the phone's display. Authored parametrically per PRD §4. |
 

@@ -1,10 +1,10 @@
 # Hook 'Em, Boot 'Em
 
 > An interactive 3D game on the history of computer architecture, for UT Austin
-> ECE students. Program seven real machines from ENIAC to the LC-3 in their own
+> ECE students. Program nine landmark eras from ENIAC to the iPhone in their own
 > assembly languages, on interactive 3D recreations of the actual hardware.
 
-A web-first journey through seven landmark eras of computing. You play a
+A web-first journey through nine landmark eras of computing. You play a
 Cockrell School ECE student who finds a "computing time machine" in the basement
 of the ECE building. To power it forward through history, you write real
 (simplified) assembly for each era's actual ISA, on a 3D model of the actual
@@ -15,7 +15,7 @@ explains why humanity needed the next stage of computing. It ends, fittingly,
 at the Texas Advanced Computing Center on UT's own campus, where some of the
 fastest machines on Earth are humming away a short walk across the Forty Acres.
 
-[![Tests](https://img.shields.io/badge/tests-95%20passing-brightgreen)]()
+[![Tests](https://img.shields.io/badge/tests-129%20passing-brightgreen)]()
 [![TypeScript](https://img.shields.io/badge/TypeScript-strict-blue)]()
 [![Build](https://img.shields.io/badge/build-passing-brightgreen)]()
 
@@ -79,7 +79,7 @@ npm run typecheck    # tsc -b --noEmit
 | Editor | CodeMirror 6 | Lightweight, themeable; custom 6502 / Intel / LC-3 syntax modes. |
 | State | Zustand | Minimal store bridging the imperative Machine into reactive React state. |
 | 3D assets | Blender (parametric) | Authored via the Blender MCP server with `bpy` Python, exported as GLB. |
-| Tests | Vitest | 95 tests covering every CPU, every assembler, every reference solution. |
+| Tests | Vitest | 129 tests covering every CPU, every assembler, every reference solution. |
 
 ---
 
@@ -212,8 +212,8 @@ The test suite covers:
 
 ```bash
 $ npm test
-Test Files  8 passed (8)
-Tests       95 passed (95)
+Test Files  10 passed (10)
+Tests       129 passed (129)
 ```
 
 ---
