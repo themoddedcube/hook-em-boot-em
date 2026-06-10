@@ -93,13 +93,8 @@ export function EniacLevel({ level }: { level: Level }) {
         />
 
         <div className="controls">
-          {!isSandbox && solved && (
+          {!isSandbox && (solved || done) && (
             <span className="result result-pass pb-result">✓ Wired correctly! 🤘</span>
-          )}
-          {!isSandbox && !solved && done && (
-            <span className="result pb-result pb-done-before">
-              ✓ Solved on an earlier visit. Rewire it for fun, or move on.
-            </span>
           )}
           {isSandbox && (
             <span className="result result-sandbox pb-result">
