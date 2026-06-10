@@ -20,7 +20,6 @@ import {
 import {
   challengeKey,
   isUnlocked,
-  loadSave,
   SaveData,
   writeSave,
 } from "../engine/progression";
@@ -226,11 +225,12 @@ export const useGameStore = create<GameState>((set, get) => {
     hintsRevealed: 0,
 
     init: () => {
-      // Always start the player on the first chronological level (ENIAC), no
-      // matter what their saved progress says. Completion still persists, so
-      // unlocked eras stay reachable from the timeline; we just want a
-      // predictable, story-correct opening every time the page loads.
-      const save = loadSave();
+      // Every page load is a fresh run: start on ENIAC with a blank save, so
+      // nothing shows as completed from a previous visit. Progress (unlocks,
+      // completions, code) still tracks normally within the session; it just
+      // doesn't carry across reloads.
+      const save: SaveData = { completed: {}, code: {} };
+      writeSave(save);
       set({ save });
       const level = LEVELS[0];
       if (!isAssembly(level)) {
