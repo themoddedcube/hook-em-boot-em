@@ -128,6 +128,8 @@ body,
   border-radius: 6px;
   cursor: pointer;
   transition: all 0.15s;
+  /* Buttons don't inherit text color; without this the names render black. */
+  color: var(--text);
 }
 .era:hover {
   border-color: var(--ut-orange);
